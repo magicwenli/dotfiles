@@ -197,11 +197,7 @@ font:
 #draw_bold_text_with_bright_colors: false
 
 # Colors (Tomorrow Night)
-#colors:
-  # Default colors
-  #primary:
-  #  background: '#1d1f21'
-  #  foreground: '#c5c8c6'
+colors:
 
     # Bright and dim foreground colors
     #
@@ -292,27 +288,33 @@ font:
   #  text: CellBackground
   #  background: CellForeground
 
+# Colors (iTerm 2 default theme)
+  # Default colors
+  primary:
+    background: '0x101421'
+    foreground: '0xfffbf6'
+
   # Normal colors
-  #normal:
-  #  black:   '#1d1f21'
-  #  red:     '#cc6666'
-  #  green:   '#b5bd68'
-  #  yellow:  '#f0c674'
-  #  blue:    '#81a2be'
-  #  magenta: '#b294bb'
-  #  cyan:    '#8abeb7'
-  #  white:   '#c5c8c6'
+  normal:
+    black:   '0x2e2e2e'
+    red:     '0xeb4129'
+    green:   '0xabe047'
+    yellow:  '0xf6c744'
+    blue:    '0x47a0f3'
+    magenta: '0x7b5cb0'
+    cyan:    '0x64dbed'
+    white:   '0xe5e9f0'
 
   # Bright colors
-  #bright:
-  #  black:   '#666666'
-  #  red:     '#d54e53'
-  #  green:   '#b9ca4a'
-  #  yellow:  '#e7c547'
-  #  blue:    '#7aa6da'
-  #  magenta: '#c397d8'
-  #  cyan:    '#70c0b1'
-  #  white:   '#eaeaea'
+  bright:
+    black:   '0x565656'
+    red:     '0xec5357'
+    green:   '0xc0e17d'
+    yellow:  '0xf9da6a'
+    blue:    '0x49a4f8'
+    magenta: '0xa47de9'
+    cyan:    '0x99faf2'
+    white:   '0xffffff'
 
   # Dim colors
   #
@@ -842,6 +844,7 @@ key_bindings:
   - { key: Return,                mode: Search|~Vi, action: SearchFocusNext       }
   - { key: Return, mods: Shift,   mode: Search|~Vi, action: SearchFocusPrevious   }
 
+{{- if ne .distro.family "darwin" -}}
   # (Windows, Linux, and BSD only)
   - { key: V,              mods: Control|Shift, mode: ~Vi,        action: Paste            }
   - { key: C,              mods: Control|Shift,                   action: Copy             }
@@ -855,10 +858,14 @@ key_bindings:
   - { key: NumpadAdd,      mods: Control,                         action: IncreaseFontSize }
   - { key: Minus,          mods: Control,                         action: DecreaseFontSize }
   - { key: NumpadSubtract, mods: Control,                         action: DecreaseFontSize }
+{{- end -}}
 
+{{- if eq .distro.family "windows" -}}
   # (Windows only)
   - { key: Return,   mods: Alt,           action: ToggleFullscreen }
+{{- end -}}
 
+{{- if eq .distro.family "darwin" -}}
   # (macOS only)
   - { key: K,              mods: Command, mode: ~Vi|~Search, chars: "\x0c"                 }
   - { key: K,              mods: Command, mode: ~Vi|~Search, action: ClearHistory          }
@@ -880,6 +887,7 @@ key_bindings:
   - { key: F,              mods: Command|Control,            action: ToggleFullscreen      }
   - { key: F,              mods: Command, mode: ~Search,     action: SearchForward         }
   - { key: B,              mods: Command, mode: ~Search,     action: SearchBackward        }
+{{- end -}}
 
 #debug:
   # Display the time it takes to redraw each frame.
