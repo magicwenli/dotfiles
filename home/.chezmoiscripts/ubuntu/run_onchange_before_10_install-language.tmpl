@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+sudo locale-gen en_US.UTF-8
+sudo update-locale LANG=en_US.UTF-8
+
+# install homebrew
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Installing Homebrew..."
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+{{ if eq .distro.id "ubuntu" -}}
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{- else }}
+  eval $(/usr/local/bin/brew shellenv)
+  {{- end }}
+{{- end }}
+
+brew update
+brew bundle --verbose --no-lock --file=/dev/stdin <<EOF
+{{ includeTemplate "ubuntu/brewfile" . }}
+EOF
+{{- if .interactive }}
+brew upgrade
+brew cleanup
+{{- end -}}

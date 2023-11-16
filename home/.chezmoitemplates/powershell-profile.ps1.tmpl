@@ -1,0 +1,45 @@
+$env:Path = '{{ .chezmoi.homeDir }}\scoop\shims;' + $env:Path
+$env:STARSHIP_CONFIG = "$HOME\AppData\Local\starship\starship.toml"
+
+# https://github.com/starship/starship/issues/2057#issuecomment-831336770
+starship.exe init powershell --print-full-init | Out-String | Invoke-Expression
+
+. $HOME\Documents\WindowsPowerShell\completions\_chezmoi.ps1
+
+function Get-Proxy {
+    Write-Host "Current proxy:"
+    Write-Host "Env:http_proxy: $Env:http_proxy" -ForegroundColor Green
+    Write-Host "Env:https_proxy: $Env:https_proxy" -ForegroundColor Green
+}
+
+function Set-Proxy {
+    $Env:http_proxy="http://127.0.0.1:7890"
+    $Env:https_proxy="http://127.0.0.1:7890"
+    Write-Host "Proxy is set: $Env:http_proxy" -ForegroundColor Green
+}
+
+function Unset-Proxy {
+    $Env:http_proxy=""
+    $Env:https_proxy=""
+    Write-Host "Proxy is unset" -ForegroundColor Green
+}
+
+{{ if (lookPath "az") -}}
+Register-ArgumentCompleter -Native -CommandName az -ScriptBlock {
+    param($commandName, $wordToComplete, $cursorPosition)
+    $completion_file = New-TemporaryFile
+    $env:ARGCOMPLETE_USE_TEMPFILES = 1
+    $env:_ARGCOMPLETE_STDOUT_FILENAME = $completion_file
+    $env:COMP_LINE = $wordToComplete
+    $env:COMP_POINT = $cursorPosition
+    $env:_ARGCOMPLETE = 1
+    $env:_ARGCOMPLETE_SUPPRESS_SPACE = 0
+    $env:_ARGCOMPLETE_IFS = "`n"
+    $env:_ARGCOMPLETE_SHELL = 'powershell'
+    az 2>&1 | Out-Null
+    Get-Content $completion_file | Sort-Object | ForEach-Object {
+        [System.Management.Automation.CompletionResult]::new($_, $_, "ParameterValue", $_)
+    }
+    Remove-Item $completion_file, Env:\_ARGCOMPLETE_STDOUT_FILENAME, Env:\ARGCOMPLETE_USE_TEMPFILES, Env:\COMP_LINE, Env:\COMP_POINT, Env:\_ARGCOMPLETE, Env:\_ARGCOMPLETE_SUPPRESS_SPACE, Env:\_ARGCOMPLETE_IFS, Env:\_ARGCOMPLETE_SHELL
+}
+{{- end }}

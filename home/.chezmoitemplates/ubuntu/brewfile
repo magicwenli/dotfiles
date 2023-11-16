@@ -1,0 +1,25 @@
+
+{{- $taps := list -}}
+{{- $brews := list -}}
+{{- $casks := list -}}
+
+{{- $taps = list
+"homebrew/autoupdate"
+"homebrew/bundle"
+"homebrew/cask-fonts"
+-}}
+
+{{- $brews := list "croc" "dust" "sd" "tokei" "age" "btop" "exa" }}
+
+
+{{- $casks = list
+"font-fira-code"
+-}}
+
+{{- range ($taps | sortAlpha | uniq) }}
+tap "{{ . }}"
+{{- end }}
+
+{{ range ($brews | sortAlpha | uniq) }}
+brew "{{ . }}"
+{{- end }}

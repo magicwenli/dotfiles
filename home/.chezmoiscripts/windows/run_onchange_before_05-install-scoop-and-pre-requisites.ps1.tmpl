@@ -1,0 +1,18 @@
+Set-StrictMode -Version 3.0
+$ErrorActionPreference = "Stop"
+
+$env:Path = '{{ .chezmoi.homeDir }}\scoop\shims;' + $env:Path
+{{ if not (lookPath "scoop") -}}
+Write-Host "Installing scoop"
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-RestMethod get.scoop.sh | Invoke-Expression
+{{- end }}
+
+# add buckets
+scoop install git
+scoop bucket add extras
+scoop bucket add versions
+scoop bucket add nerd-fonts
+scoop install extras/age
+scoop install main/chezmoi
+scoop install nerd-fonts/JetBrains-Mono

@@ -1,0 +1,26 @@
+README.md
+install.sh
+README.md
+key.txt.age
+.chezmoiscripts/*/**
+!.chezmoiscripts/{{ .distro.id }}/**
+#!.chezmoiscripts/universal/**
+
+{{ if ne .chezmoi.os "windows" }}
+**/*.bat
+**/*.ps1
+Documents
+AppData
+scoop
+.npmrc
+{{ end }}
+
+{{ if and ( ne .chezmoi.os "linux" ) ( ne .chezmoi.os "darwin" )}}
+**/*.sh
+.config/zsh
+#.local/bin/**
+.bash_history
+.bashrc
+.profile
+.zshenv
+{{ end }}
