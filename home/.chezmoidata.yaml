@@ -1,0 +1,35 @@
+versions:
+  direnv: v2.32.3           # renovate: datasource=github-releases depName=direnv/direnv
+  starship: v1.16.0         # renovate: datasource=github-releases depName=starship/starship
+  fzf: "0.44.0"             # renovate: datasource=github-releases depName=junegunn/fzf
+  fd: v8.7.1                # renovate: datasource=github-releases depName=sharkdp/fd
+  age: v1.1.1               # renovate: datasource=github-releases depName=FiloSottile/age
+  eza: v0.15.3              # renovate: datasource=github-releases depName=eza-community/eza
+  bat: v0.24.0              # renovate: datasource=github-releases depName=sharkdp/bat
+  dasel: v2.4.1             # renovate: datasource=github-releases depName=TomWright/dasel
+
+scoop_packages:
+  all:
+    - main/neovim
+    - main/ripgrep
+    - main/fd
+    - main/starship
+    - extras/obsidian
+    - extras/vscode
+    - extras/alacritty
+    - extras/everything
+    - extras/powertoys
+    - versions/snipaste-beta
+  work1: 
+    - extras/winmerge
+  personal:
+    - main/winfetch
+    - main/pnpm
+    - extras/bitwarden
+    - extras/potplayer
+    - versions/bandizip6
+    - extras/glazewm
+
+apt_packages:
+  all:
+    - curl

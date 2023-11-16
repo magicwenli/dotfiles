@@ -1,0 +1,57 @@
+git_update_all () {
+  pushd .;
+  currDir=`pwd`
+  for i in `find $currDir -maxdepth 7 -type d -name ".git"`; do
+    cd $i/../ > /dev/null;
+    pwd;
+    git pull > /dev/null;
+    if [ $? -ne 0 ]; then
+      echo "git pull error";
+      return;
+    fi
+  done;
+  popd;
+}
+
+
+git_clean_ignored () {
+  pushd .;
+  currDir=`pwd`
+  for i in `find $currDir -maxdepth 7 -type d -name ".git"`; do
+    cd $i/../ > /dev/null;
+    pwd;
+    git clean -dfx
+  done;
+  popd;
+}
+
+asdf_latest_versions () {
+  asdf update > /dev/null 2>&1
+  asdf plugin update --all > /dev/null 2>&1
+  diff <(cat ~/.tool-versions | awk '{print $1}' | xargs -I {} bash -c 'echo {} $(asdf latest {})') <(cat ~/.tool-versions)
+}
+
+function pxy() {
+{{- if eq .chezmoi.os "linux" }}
+{{-   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+  host_ip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
+	export http_proxy=http://$host_ip:7890
+	export https_proxy=http://$host_ip:7890
+{{-   else }}
+	export http_proxy=http://127.0.0.1:7890
+	export https_proxy=http://127.0.0.1:7890
+{{-   end }}
+{{- else }}
+	export http_proxy=http://127.0.0.1:7890
+	export https_proxy=http://127.0.0.1:7890
+{{- end }}
+	export no_proxy=127.0.0.1,localhost
+	echo -e "\033[32m[√] 已开启代理\033[0m <http_proxy: ${http_proxy}>"
+}
+
+function unpxy(){
+	unset http_proxy
+	unset https_proxy
+	unset no_proxy
+	echo -e "\033[31m[×] 已关闭代理\033[0m"
+}

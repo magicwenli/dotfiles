@@ -1,0 +1,109 @@
+# chezmoi:template:missing-key=invalid
+config_info: |
+  {{- $interactive := stdinIsATTY -}}
+  {{- $ephemeral := false -}}
+  {{- $profile := coalesce (env "DATA_profile") (get . "profile") "<no value>" -}}
+  {{- $name := .name -}}
+  {{- $email := .email -}}
+
+  {{- $is_wsl := false -}}
+  {{- if .chezmoi.kernel -}}
+  {{-   if hasKey .chezmoi.kernel "osrelease" -}}
+  {{-     $is_wsl = (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+  {{-   end -}}
+  {{- end -}}
+
+  {{- $is_desktop := or ($is_wsl) (eq .chezmoi.os "windows") (eq (env "IS_DESKTOP") "true") -}}
+
+  {{- if or (env "CODESPACES") (env "GITPOD_WORKSPACE_ID") -}}
+  {{-   $ephemeral = true -}}
+  {{-   $profile = "personal" -}}
+  {{-   $is_desktop = true -}}
+  {{-   $name = coalesce (env "GITPOD_GIT_USER_NAME") .name -}}
+  {{-   $email = coalesce (env "GITPOD_GIT_USER_EMAIL") .email -}}
+  {{- end -}}
+
+  {{- $is_server := not $is_desktop -}}
+  {{- $workingTree := .chezmoi.workingTree -}}
+  {{- $username := .chezmoi.username -}}
+  {{- $distro := dict "family" .chezmoi.os "id" (get .chezmoi.osRelease "id" | default .chezmoi.os) -}}
+  {{- if or (eq $distro.id "arch") (eq $distro.id "archarm") -}}
+  {{- $_ := set $distro "id" "archlinux" -}}
+  {{- end -}}
+
+
+  {{- $script_ext := "sh" -}}
+  {{- if eq .chezmoi.os "windows" -}}
+  {{-   $script_ext = "bat" -}}
+  {{-   $workingTree = printf "%s%s" .chezmoi.homeDir "/AppData/Local/chezmoi" -}}
+  {{-   $username = env "USERNAME" -}}
+  {{- end -}}
+
+  {{- $use_encrypted_data := and $interactive (not $ephemeral) -}}
+
+  {{- range $i := until 5 -}}
+  {{-   if regexMatch "^((personal)|(work\\d))$" $profile -}}
+  {{-     break -}}
+  {{-   else -}}
+  {{-     $profile = promptString "Which profile should be used for this machine? (personal/work1)" -}}
+  {{-   end -}}
+  {{-   if eq $i 4 -}}
+  {{-     writeToStdout "❌ ERROR: Invalid profile selected\n" -}}
+  {{-     exit 1 -}}
+  {{-   end -}}
+  {{- end -}}
+
+  {{- $personal_device := eq $profile "personal" -}}
+  {{- $work_device := ne $profile "personal" -}}
+
+  {{- $enc_data := dict -}}
+  {{- if and
+        (stat (joinPath .chezmoi.homeDir ".config/chezmoi/key.txt"))
+        (stat (joinPath .chezmoi.homeDir ".config/chezmoi/chezmoi.yaml")) -}}
+  {{-   $enc_data = include (joinPath .chezmoi.workingTree "home/.data/chezmoidata.yaml.age") | decrypt | fromYaml -}}
+  {{- end -}}
+
+  {{- $profiles := coalesce $enc_data.profiles .profiles -}}
+  {{- if $profiles -}}
+  {{-   $profile_data := get $profiles $profile -}}
+  {{-   $name = $profile_data.name -}}
+  {{-   $email = $profile_data.email -}}
+  {{- end -}}
+
+  {{ "" }}
+  Generated for user={{ $username }}, hostname={{ .chezmoi.hostname }}
+
+encryption: age
+age:
+  identity: "~/.config/chezmoi/key.txt"
+  recipient: "age1uhl3mg4udsgr9sumeer2u99esj9thxm8mly6ufxvawd7g6z0scks72ka87"
+
+data:
+  use_encrypted_data: {{ $use_encrypted_data }}
+  is_wsl: {{ $is_wsl }}
+  is_server: {{ $is_server }}
+  is_desktop: {{ $is_desktop  }}
+{{- if eq .chezmoi.os "linux" }}
+  uname:
+    machine: "{{ output "uname" "-m" | trim }}"
+{{- end }}
+  profile: {{ $profile }}
+  personal_device: {{ $personal_device }}
+  work_device: {{ $work_device }}
+  email: {{ $email }}
+  name: {{ $name }}
+  distro:
+    family: "{{ $distro.family }}"
+    id: "{{ $distro.id }}"
+  headless: {{ $ephemeral }}
+
+{{- $password_store := coalesce $enc_data.password_store .password_store -}}
+{{- if $password_store }}
+  password_store:
+    repo: {{ $password_store.repo }}
+{{- end }}
+
+{{- if $profiles }}
+  profiles:
+{{ $profiles | toYaml | indent 4 }}
+{{- end }}

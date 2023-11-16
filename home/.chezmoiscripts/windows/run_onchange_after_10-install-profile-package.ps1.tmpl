@@ -1,0 +1,11 @@
+Set-StrictMode -Version 3.0
+$ErrorActionPreference = "Stop"
+
+{{ $scoop_packages := concat
+  (dig "all" list .scoop_packages)
+  (dig .profile list .scoop_packages) -}}
+
+# region Scoop packages
+{{ if gt (len $scoop_packages) 0 -}}
+  scoop install {{ $scoop_packages | join " " }}
+{{ end }}

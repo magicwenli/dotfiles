@@ -1,0 +1,20 @@
+
+{{- $refreshPeriod := "168h" }}
+
+[_chezmoi]
+    type = "file"
+    url = 'https://raw.githubusercontent.com/twpayne/chezmoi/master/completions/chezmoi.zsh'
+    refreshPeriod = "{{ $refreshPeriod }}"
+[_exa]
+    type = "file"
+    url = 'https://raw.githubusercontent.com/ogham/exa/master/completions/zsh/_exa'
+    refreshPeriod = "{{ $refreshPeriod }}"
+
+[_fd]
+    type = "file"
+    url = 'https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd'
+    refreshPeriod = "{{ $refreshPeriod }}"
+[_rg]
+    type = "file"
+    url = 'https://raw.githubusercontent.com/BurntSushi/ripgrep/master/complete/_rg'
+    refreshPeriod = "{{ $refreshPeriod }}"

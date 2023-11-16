@@ -1,0 +1,72 @@
+[user]
+    name = "{{ .name }}"
+    email = "{{ .email }}"
+[credential "https://github.com"]
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = !gh auth git-credential
+[core]
+    pager = less -FRSX
+[merge]
+    tool = vscode
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
+[branch]
+    autosetuprebase = always
+[diff]
+    colorMoved = default
+    renamelimit = 0
+    mnemonicprefix = true
+    renames = copies
+[fetch]
+    prune = true
+[help]
+    autocorrect = 1
+[init]
+    defaultBranch = main
+[merge]
+    ff = only
+    renamelimit = 0
+    summary = true
+    stat = true
+    conflictstyle = diff3
+[pack]
+    threads = 0
+[pull]
+    rebase = true
+[push]
+    autoSetupRemote = true
+    default = upstream
+    followTags = true
+[rebase]
+    autosquash = true
+[rerere]
+    enabled = true
+    autoupdate = true
+[transfer]
+    fsckobjects = true
+[status]
+    showUntrackedFiles = all
+[color]
+    ui = auto
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+[credential "helperselector"]
+    selected = manager
+[credential "https://gitea.com"]
+    provider = generic
