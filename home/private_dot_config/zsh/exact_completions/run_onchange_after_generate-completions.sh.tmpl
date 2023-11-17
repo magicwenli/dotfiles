@@ -16,24 +16,4 @@ if [ "$(command -v cht.sh)" ]; then
  cht.sh :zsh > "{{ $compDir }}/_cht"
 fi
 
-if [ "$(command -v datree)" ]; then
-  datree completion zsh > "{{ $compDir }}/_datree"
-fi
-
-if [ "$(command -v kubectl)" ]; then
-  kubectl completion zsh | sed 's/kubectl/kubecolor/g' > "{{ $compDir }}/_kubecolor"
-fi
-
-if [ "$(command -v popeye)" ]; then
-  popeye completion zsh > "{{ $compDir }}/_popeye"
-fi
-
-if [ "$(command -v stern)" ]; then
-  stern --completion zsh > "{{ $compDir }}/_stern"
-fi
-
-if [ "$(command -v yq)" ]; then
-  yq shell-completion zsh > "{{ $compDir }}/_yq"
-fi
-
 {{- end }}
