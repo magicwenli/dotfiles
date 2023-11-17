@@ -1,0 +1,22 @@
+#!/bin/bash
+
+{{ if .use_encrypted_data }}
+
+GREEN="\033[0;32m"
+NC='\033[0m'
+
+if [ ! -f "{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt" ]; then
+
+    mkdir -p "{{ .chezmoi.homeDir }}/.config/chezmoi"
+
+    echo "WARNING: Requesting decryption of age key. "
+    echo "Please enter password and re-run chezmoi init to complete chezmoi.yaml data setup"
+    chezmoi age decrypt --output "{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt" --passphrase "{{ .chezmoi.sourceDir }}/.data/key_chezmoi.txt.age"
+    if [ $? -ne 0 ]; then
+        exit $?
+    fi
+    echo "${GREEN}    chezmoi.exe init --data=false${NC}"
+    echo "${GREEN}    chezmoi.exe apply${NC}"
+fi
+
+{{ end }}

@@ -120,12 +120,7 @@ if [ -n "${HOMEBREW_PREFIX-}" ] ; then
   add_to_path $HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin
 fi
 {{- end }}
-add_to_path $KREW_ROOT/bin
 add_to_path $CARGO_HOME/bin
-add_to_path $AQUA_ROOT_DIR/bin
 add_to_path $HOME/.local/bin
-
-[ -f "$ASDF_DIR/asdf.sh" ] && source "$ASDF_DIR/asdf.sh"
-
 
 unset -f add_to_path

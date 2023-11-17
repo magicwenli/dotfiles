@@ -32,4 +32,52 @@ scoop_packages:
 
 apt_packages:
   all:
-    - curl
+    - "bat"
+    - "coreutils"
+    - "curl"
+    - "direnv"
+    - "fd"
+    - "git"
+    - "jq"
+    - "neovim"
+    - "ripgrep"
+    - "tmux"
+    - "unison"
+    - "wget"
+    - "zsh"
+  work1:
+    - "git"
+  personal:
+    - "git"
+  devtool:
+    - "make"
+    - "build-essential"
+    - "libssl-dev"
+    - "zlib1g-dev"
+    - "libbz2-dev"
+    - "libreadline-dev"
+    - "libsqlite3-dev"
+    - "wget"
+    - "curl"
+    - "llvm"
+    - "libncursesw5-dev"
+    - "xz-utils"
+    - "tk-dev"
+    - "libxml2-dev"
+    - "libxmlsec1-dev"
+    - "libffi-dev"
+    - "liblzma-dev"
+
+brew_packages:
+  all:
+    - "age"
+    - "btop"
+    - "croc"
+    - "exa"
+    - "dust"
+    - "sd"
+    - "tokei"
+  work1:
+    - "git"
+  personal:
+    - "git"
