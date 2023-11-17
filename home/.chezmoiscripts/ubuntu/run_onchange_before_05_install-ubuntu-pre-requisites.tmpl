@@ -10,6 +10,7 @@ function app_apt_repo {
 {{ $apt_packages := concat
     (dig "all" list .apt_packages)
     (dig .profile list .apt_packages) -}}
+{{- $apt_packages =  concat $apt_packages (dig "devtool" list .apt_packages) -}}
 {{- $apt_packages =  concat (without $apt_packages "fd") (list "fd-find") -}}
 
 echo Installing packages: {{- $apt_packages | sortAlpha | uniq | join " " }}
