@@ -5,6 +5,7 @@ $env:STARSHIP_CONFIG = "$HOME\AppData\Local\starship\starship.toml"
 starship.exe init powershell --print-full-init | Out-String | Invoke-Expression
 
 . $HOME\Documents\WindowsPowerShell\completions\_chezmoi.ps1
+Import-Module "$($(Get-Item $(Get-Command scoop.ps1).Path).Directory.Parent.FullName)\modules\scoop-completion"
 
 function Get-Proxy {
     Write-Host "Current proxy:"

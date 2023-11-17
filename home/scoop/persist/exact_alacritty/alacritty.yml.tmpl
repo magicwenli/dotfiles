@@ -844,7 +844,7 @@ key_bindings:
   - { key: Return,                mode: Search|~Vi, action: SearchFocusNext       }
   - { key: Return, mods: Shift,   mode: Search|~Vi, action: SearchFocusPrevious   }
 
-{{- if ne .distro.family "darwin" -}}
+{{ if ne .distro.family "darwin" }}
   # (Windows, Linux, and BSD only)
   - { key: V,              mods: Control|Shift, mode: ~Vi,        action: Paste            }
   - { key: C,              mods: Control|Shift,                   action: Copy             }
@@ -858,14 +858,14 @@ key_bindings:
   - { key: NumpadAdd,      mods: Control,                         action: IncreaseFontSize }
   - { key: Minus,          mods: Control,                         action: DecreaseFontSize }
   - { key: NumpadSubtract, mods: Control,                         action: DecreaseFontSize }
-{{- end -}}
+{{ end -}}
 
-{{- if eq .distro.family "windows" -}}
+{{ if eq .distro.family "windows" }}
   # (Windows only)
   - { key: Return,   mods: Alt,           action: ToggleFullscreen }
-{{- end -}}
+{{ end -}}
 
-{{- if eq .distro.family "darwin" -}}
+{{ if eq .distro.family "darwin" }}
   # (macOS only)
   - { key: K,              mods: Command, mode: ~Vi|~Search, chars: "\x0c"                 }
   - { key: K,              mods: Command, mode: ~Vi|~Search, action: ClearHistory          }
@@ -887,7 +887,7 @@ key_bindings:
   - { key: F,              mods: Command|Control,            action: ToggleFullscreen      }
   - { key: F,              mods: Command, mode: ~Search,     action: SearchForward         }
   - { key: B,              mods: Command, mode: ~Search,     action: SearchBackward        }
-{{- end -}}
+{{ end }}
 
 #debug:
   # Display the time it takes to redraw each frame.
