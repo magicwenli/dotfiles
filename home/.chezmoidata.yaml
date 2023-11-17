@@ -71,12 +71,9 @@ apt_packages:
 brew_packages:
   all:
     - "age"
-    - "btop"
     - "croc"
     - "exa"
     - "dust"
-    - "sd"
-    - "tokei"
   work1:
     - "git"
   personal:
