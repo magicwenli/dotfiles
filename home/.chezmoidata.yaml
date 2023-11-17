@@ -74,6 +74,7 @@ brew_packages:
     - "croc"
     - "exa"
     - "dust"
+    - "chezmoi"
   work1:
     - "git"
   personal:

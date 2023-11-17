@@ -124,7 +124,7 @@ setopt HIST_VERIFY               # Don't execute immediately upon history expans
 
 # Load direnv
 if command -v direnv >/dev/null 2>&1; then
-  _evalcache direnv hook zsh
+  eval "$(direnv hook zsh)"
 fi
 
 # Load local configuration.
