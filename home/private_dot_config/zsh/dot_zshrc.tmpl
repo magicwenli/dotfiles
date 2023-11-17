@@ -69,7 +69,7 @@ fpath=(
     $fpath
 )
 
-{{- if eq .host.distro.family "darwin" }}
+{{- if eq .distro.family "darwin" }}
 z4h load ohmyzsh/ohmyzsh/plugins/brew
 {{- end }}
 z4h load ohmyzsh/ohmyzsh/plugins/encode64
