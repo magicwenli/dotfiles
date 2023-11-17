@@ -98,7 +98,8 @@ data:
   distro:
     family: "{{ $distro.family }}"
     id: "{{ $distro.id }}"
-  headless: {{ $ephemeral }}
+  ephemeral: {{ $ephemeral }}
+  interactive: {{ $interactive }}
 
 {{- $password_store := coalesce $enc_data.password_store .password_store -}}
 {{- if $password_store }}
