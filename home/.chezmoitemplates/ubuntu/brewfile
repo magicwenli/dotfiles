@@ -1,25 +1,27 @@
 
-{{- $taps := list -}}
-{{- $brews := list -}}
-{{- $casks := list -}}
+{{- $brew_taps := list -}}
+{{- $brew_packages := list -}}
+{{- $brew_casks := list -}}
 
-{{- $taps = list
+{{- $brew_taps = list
 "homebrew/autoupdate"
 "homebrew/bundle"
 "homebrew/cask-fonts"
 -}}
 
-{{- $brews := list "croc" "dust" "sd" "tokei" "age" "btop" "exa" }}
+{{- $brew_packages = concat
+    (dig "all" list .brew_packages)
+    (dig .profile list .brew_packages) -}}
 
 
-{{- $casks = list
-"font-fira-code"
+{{- $brew_casks = list
+"font-jetbrains-mono-nerd-font"
 -}}
 
-{{- range ($taps | sortAlpha | uniq) }}
+{{- range ($brew_taps | sortAlpha | uniq) }}
 tap "{{ . }}"
 {{- end }}
 
-{{ range ($brews | sortAlpha | uniq) }}
+{{ range ($brew_packages | sortAlpha | uniq) }}
 brew "{{ . }}"
 {{- end }}

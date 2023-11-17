@@ -32,26 +32,24 @@ asdf_latest_versions () {
 }
 
 function pxy() {
-{{- if eq .chezmoi.os "linux" }}
-{{-   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-  host_ip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
+{{- if and
+    (eq .chezmoi.os "linux") 
+    (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+  host_ip=$(cat /etc/resolv.conf | grep "nameserver" | cut -f 2 -d " ") # wsl host ip
 	export http_proxy=http://$host_ip:7890
 	export https_proxy=http://$host_ip:7890
 {{-   else }}
 	export http_proxy=http://127.0.0.1:7890
 	export https_proxy=http://127.0.0.1:7890
 {{-   end }}
-{{- else }}
-	export http_proxy=http://127.0.0.1:7890
-	export https_proxy=http://127.0.0.1:7890
-{{- end }}
+
 	export no_proxy=127.0.0.1,localhost
-	echo -e "\033[32m[√] 已开启代理\033[0m <http_proxy: ${http_proxy}>"
+	echo -e "\033[32m[√] set proxy! <http_proxy: ${http_proxy}>\033[0m"
 }
 
 function unpxy(){
 	unset http_proxy
 	unset https_proxy
 	unset no_proxy
-	echo -e "\033[31m[×] 已关闭代理\033[0m"
+	echo -e "\033[31m[×] unset proxy!\033[0m"
 }

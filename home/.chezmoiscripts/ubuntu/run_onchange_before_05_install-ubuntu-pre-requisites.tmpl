@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+function app_apt_repo {
+  if [ ! -f /etc/apt/sources.list.d/$1.list ]; then
+      curl -fsSL "$2" | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/$1.gpg
+      echo "$3" | sudo tee /etc/apt/sources.list.d/$1.list
+  fi
+}
+
+{{ $apt_packages := concat
+    (dig "all" list .apt_packages)
+    (dig .profile list .apt_packages) -}}
+{{- $apt_packages =  concat (without $apt_packages "fd") (list "fd-find") -}}
+
+echo Installing packages: {{- $apt_packages | sortAlpha | uniq | join " " }}
+# {{ includeTemplate "universal/next-update" . }}
+sudo apt-get update
+sudo apt-get install -y --no-install-recommends {{ $apt_packages | sortAlpha | uniq | join " " }}

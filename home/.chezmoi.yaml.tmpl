@@ -41,17 +41,20 @@ config_info: |
 
   {{- $use_encrypted_data := and $interactive (not $ephemeral) -}}
 
-  {{- range $i := until 5 -}}
-  {{-   if regexMatch "^((personal)|(work\\d))$" $profile -}}
-  {{-     break -}}
-  {{-   else -}}
-  {{-     $profile = promptString "Which profile should be used for this machine? (personal/work1)" -}}
-  {{-   end -}}
-  {{-   if eq $i 4 -}}
-  {{-     writeToStdout "❌ ERROR: Invalid profile selected\n" -}}
-  {{-     exit 1 -}}
+  {{- if $interactive }}
+  {{-   range $i := until 5 -}}
+  {{-     if regexMatch "^((personal)|(work\\d))$" $profile -}}
+  {{-       break -}}
+  {{-     else -}}
+  {{-       $profile = promptString "Which profile should be used for this machine? (personal/work1)" -}}
+  {{-     end -}}
+  {{-     if eq $i 4 -}}
+  {{-       writeToStdout "❌ ERROR: Invalid profile selected\n" -}}
+  {{-       exit 1 -}}
+  {{-     end -}}
   {{-   end -}}
   {{- end -}}
+  {{- $profile = coalesce $profile "personal" -}}
 
   {{- $personal_device := eq $profile "personal" -}}
   {{- $work_device := ne $profile "personal" -}}
