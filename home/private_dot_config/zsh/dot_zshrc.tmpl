@@ -65,7 +65,6 @@ path=(~/bin $path)
 # Extend function path
 fpath=(
     $ZDOTDIR/completions
-    $ASDF_DATA_DIR/completions
     $fpath
 )
 
@@ -134,17 +133,15 @@ z4h source $ZDOTDIR/.zshrc.local
 autoload -Uz zmv
 
 # Define functions and completions.
+z4h source $HOME/.config/shell/functions.sh
 function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
+# Define aliases.
+z4h source $HOME/.config/shell/aliases.sh
+
 # Define named directories: ~w <=> Windows home directory on WSL.
 [[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
-
-# Define aliases.
-alias tree='tree -a -I .git'
-
-# Add flags to existing aliases.
-alias ls="${aliases[ls]:-ls} -A"
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
