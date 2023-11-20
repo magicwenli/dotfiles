@@ -10,25 +10,26 @@ versions:
 
 scoop_packages:
   all:
-    - main/neovim
-    - main/ripgrep
-    - main/fd
-    - main/starship
-    - extras/obsidian
-    - extras/vscode
-    - extras/alacritty
-    - extras/everything
-    - extras/powertoys
-    - versions/snipaste-beta
+    - "main/neovim"
+    - "main/ripgrep"
+    - "main/fd"
+    - "main/starship"
+    - "extras/obsidian"
+    - "extras/vscode"
+    - "extras/alacritty"
+    - "extras/everything"
+    - "extras/powertoys"
+    - "versions/snipaste-beta"
+    - "main/gh"
   work1: 
-    - extras/winmerge
+    - "extras/winmerge"
   personal:
-    - main/winfetch
-    - main/pnpm
-    - extras/bitwarden
-    - extras/potplayer
-    - versions/bandizip6
-    - extras/glazewm
+    - "main/winfetch"
+    - "main/pnpm"
+    - "extras/bitwarden"
+    - "extras/potplayer"
+    - "versions/bandizip6"
+    - "extras/glazewm"
 
 apt_packages:
   all:
@@ -71,10 +72,11 @@ apt_packages:
 brew_packages:
   all:
     - "age"
-    - "croc"
-    - "exa"
-    - "dust"
     - "chezmoi"
+    - "croc"
+    - "dust"
+    - "exa"
+    - "gh"
   work1:
     - "git"
   personal:
