@@ -143,6 +143,17 @@ z4h source $HOME/.config/shell/aliases.sh
 # Define named directories: ~w <=> Windows home directory on WSL.
 [[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
 
+# pnpm
+export PNPM_HOME="/home/vita/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# cargo
+z4h source $HOME/.local/share/cargo/env
+
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
