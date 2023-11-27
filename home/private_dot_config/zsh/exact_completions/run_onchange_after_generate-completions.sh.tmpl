@@ -17,4 +17,8 @@ if [ "$(command -v cht.sh)" ]; then
  cht.sh :zsh > "{{ $compDir }}/_cht"
 fi
 
+if [ "$(command -v rg)" ]; then
+ rg --generate complete-zsh > "{{ $compDir }}/_rg"
+fi
+
 {{- end }}

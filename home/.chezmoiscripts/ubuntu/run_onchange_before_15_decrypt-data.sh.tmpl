@@ -15,8 +15,8 @@ if [ ! -f "{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt" ]; then
     if [ $? -ne 0 ]; then
         exit $?
     fi
-    echo "${GREEN}    chezmoi.exe init --data=false${NC}"
-    echo "${GREEN}    chezmoi.exe apply${NC}"
+    echo -e "${GREEN}    chezmoi init --data=false${NC}\n"
+    echo -e "${GREEN}    chezmoi apply${NC}\n"
 fi
 
 {{ end }}
