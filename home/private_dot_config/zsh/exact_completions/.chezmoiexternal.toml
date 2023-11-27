@@ -15,7 +15,3 @@
     type = "file"
     url = 'https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd'
     refreshPeriod = "{{ $refreshPeriod }}"
-[_rg]
-    type = "file"
-    url = 'https://raw.githubusercontent.com/BurntSushi/ripgrep/master/complete/_rg'
-    refreshPeriod = "{{ $refreshPeriod }}"
