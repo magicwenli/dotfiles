@@ -1,0 +1,6 @@
+{{- if eq .chezmoi.os "windows" }}
+sourceDir: {{ joinPath .chezmoi.sourceDir "windows" }}
+{{- else }}
+sourceDir: {{ joinPath .chezmoi.sourceDir "linux" }}
+{{- end }}
+
