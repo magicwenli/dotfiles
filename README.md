@@ -19,7 +19,7 @@ A proxy is needed to access the Internet. Set the proxy with:
 Install them with:
 
     # For macOS / Linux
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply magicwenli
+    sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --branch dev --apply magicwenli
 
     # For Windows PS
     Set-ExecutionPolicy RemoteSigned -scope CurrentUser
