@@ -6,8 +6,6 @@ readonly home_cargo_prefix="${HOME}/.cargo"
 
 ensure_path_entry "${home_cargo_prefix}/bin"
 
-
-
 function is_package_installed() {
   local package="$1"
   if ! command -v "${package}" &>/dev/null; then
@@ -35,5 +33,5 @@ done
 
 if [[ ${#missing_packages[@]} -gt 0 ]]; then
   log_task "Installing missing packages with Cargo: ${missing_packages[*]}"
-  cargo install --lock "${missing_packages[@]}"
+  cargo install --locked "${missing_packages[@]}"
 fi
