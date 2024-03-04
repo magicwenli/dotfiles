@@ -1,11 +1,10 @@
+{{- if or (eq .chezmoi.osRelease.id "ubuntu") (eq .chezmoi.osRelease.id "debian") -}}
 #!/bin/bash
-
 # {{ include (joinPath .chezmoi.sourceDir ".chezmoitemplates/bash_library.sh") }}
 
 readonly wanted_packages=(
   git
   curl
-  vim
   gpg
 )
 missing_packages=()
@@ -28,3 +27,5 @@ if [[ ${#missing_packages[@]} -gt 0 ]]; then
   c "${apt_command[@]}" update
   c "${apt_command[@]}" install --yes --no-install-recommends "${missing_packages[@]}"
 fi
+
+{{ end -}}
