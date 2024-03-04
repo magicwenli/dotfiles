@@ -70,6 +70,23 @@ done
 readonly wanted_packages=(
   chezmoi
   yq
+  bat
+  zoxide
+  eza
+  ripgrep
+  bottom
+  fd
+  dust
+  just
+  tokei
+  navi
+  fzf
+)
+
+readonly tap_packages=(
+  homebrew/cask-fonts
+  homebrew/bundle
+  homebrew/autoupdate
 )
 
 missing_packages=()
@@ -77,6 +94,13 @@ missing_packages=()
 for package in "${wanted_packages[@]}"; do
   if ! is_brew_package_installed "${package}"; then
     missing_packages+=("${package}")
+  fi
+done
+
+for package in "${tap_packages[@]}"; do
+  if ! brew tap | grep --quiet "${package}"; then
+    log_task "Tapping Homebrew repository '${package}'"
+    brew tap "${package}"
   fi
 done
 
