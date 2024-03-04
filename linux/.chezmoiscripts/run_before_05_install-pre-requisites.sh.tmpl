@@ -1,6 +1,6 @@
 {{- if or (eq .chezmoi.osRelease.id "ubuntu") (eq .chezmoi.osRelease.id "debian") -}}
 #!/bin/bash
-# {{ include (joinPath .chezmoi.sourceDir ".chezmoitemplates/bash_library.sh") }}
+# {{ template "scripts-library.sh" }}
 
 readonly wanted_packages=(
   git
