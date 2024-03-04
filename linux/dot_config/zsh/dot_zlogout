@@ -1,0 +1,9 @@
+# vim: syntax=sh
+
+if [ -z "$TMUX" ]; then
+
+   # CLEANUP TASKS
+   [ -n "$(command -v brew)" ] \
+       && brew cleanup &
+
+fi
