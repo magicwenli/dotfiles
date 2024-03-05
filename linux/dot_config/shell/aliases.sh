@@ -63,11 +63,6 @@ alias tictactoe="telnet pixelomer.com"
     && alias tree="exa --git --tree --icons"             \
     && debug_info "Adding aliases for 'exa'"
 
-# IF BUKU IS INSTALLED
-## [ -n "$(command -v buku)" ]                                                   \
-##     && alias bukue="buku --export ~/.config/buku/{{ .computer.type }}bookmarks.md" \
-##     && alias bukuo="open $(buku -p -f4 | fzf -m --reverse --preview \"buku -p {1}\" --preview-window=wrap | cut -f2)"  \
-##     && debug_info "Adding aliases for 'buku'"
 
 # IF NAVI IS INSTALLED
 [ -n "$(command -v navi)" ]         \
