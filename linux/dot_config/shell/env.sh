@@ -167,7 +167,6 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh" \
             '([[ -f {} ]] &&                                                      \
             (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && \
             (exa --tree --icons --color=always {} | less)) || echo {} 2> /dev/null | head -200'" \
-    && debug_info "Exporting FZF_DEFAULT_OPTS='$FZF_DEFAULT_OPTS'"                               \
     && export FZF_DEFAULT_COMMAND="fd --type f"                                                  \
     && debug_info "Exporting FZF_DEFAULT_COMMAND='$FZF_DEFAULT_COMMAND'"                         \
     && export FZF_COMPLETION_TRIGGER="**"                                                        \
@@ -194,18 +193,6 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh" \
     && debug_info "Exporting PACKER_HOME_DIR='$PACKER_HOME_DIR'" \
     && export PACKER_LOG_PATH="$XDG_CACHE_HOME/packer/logs"      \
     && debug_info "Exporting PACKER_LOG_PATH='$PACKER_LOG_PATH'"
-
-[ -n "$(command -v zoxide)" ]                           \
-    && debug_info "Initializing functions for 'zoxide'" \
-    && eval "$(zoxide init zsh --cmd j)"
-
-[ -n "$(command -v direnv)" ]    \
-    && eval "$(direnv hook zsh)" \
-    && debug_info "Initializing functions for 'direnv'"
-
-[ -n "$(command -v chezmoi)" ]          \
-    && eval "$(chezmoi completion zsh)" \
-    && debug_info "Initializing functions for 'chezmoi'"
 
 [ -n "$(command -v sshpass)" ]                \
     && export SSHPASS="$(pass show ssh/pass)" \

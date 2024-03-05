@@ -30,6 +30,10 @@ fi
     && source "$XDG_CONFIG_HOME/p10k/p10k.zsh" \
     && debug_info "Sourcing file '$XDG_CONFIG_HOME/p10k/p10k.zsh'"
 
+[ -f "$XDG_CONFIG_HOME/zsh/autocomp.zsh" ]        \
+    && source "$XDG_CONFIG_HOME/zsh/autocomp.zsh" \
+    && debug_info "Sourcing file '$XDG_CONFIG_HOME/zsh/autocomp.zsh'"
+
 # SETUP KEYBINDINGS
 bindkey "ç" fzf-cd-widget                           \
     && bindkey -M viins 'jj' vi-cmd-mode \
