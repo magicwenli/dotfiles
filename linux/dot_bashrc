@@ -127,8 +127,9 @@ function debug_info () {
     return 0
 }
 
+# SOURCE SHELL SETTINGS
 export XDG_CONFIG_HOME="$HOME/.config"    \
     && debug_info "Exporting XDG_CONFIG_HOME='$XDG_CONFIG_HOME'"
 
 [ -d "$XDG_CONFIG_HOME/shell/" ]      \
-    && . "$XDG_CONFIG_HOME/shell/env.sh"
+    && source "$XDG_CONFIG_HOME/shell/env.sh"

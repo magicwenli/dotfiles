@@ -16,10 +16,13 @@ fi
 
 # SOURCE SHELL SETTINGS
 if [ -d "$XDG_CONFIG_HOME/shell" ]; then
-    for file in "$XDG_CONFIG_HOME"/shell/*.sh; do
-        debug_info "Sourcing file '$file'"
-        source "$file"
-    done
+    local file="$XDG_CONFIG_HOME"/shell/aliases.sh
+    debug_info "Sourcing file '$file'"
+    source "$file"
+
+    local file="$XDG_CONFIG_HOME"/shell/functions.sh
+    debug_info "Sourcing file '$file'"
+    source "$file"
 fi
 
 # SOURCE P10K POWERLINE SETTINGS
