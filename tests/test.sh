@@ -11,4 +11,6 @@ docker run --rm -it \
     -e http_proxy=http://172.16.21.55:7890 \
     -e https_proxy=http://172.16.21.55:7890 \
     ubuntu_latest \
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --branch dev magicwenli
+    sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --branch dev magicwenli && \
+    ~/.local/bin/chezmoi apply && \
+    bash
