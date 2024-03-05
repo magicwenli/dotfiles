@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# {{ template "scripts-library.sh" }}
+
+log_task "Entering Post-Staff"
+
+readonly home_homebrew_prefix="${HOME}/.linuxbrew"
+readonly root_homebrew_prefix="/home/linuxbrew/.linuxbrew"
+
+ensure_path_entry "${home_homebrew_prefix}/bin" "${root_homebrew_prefix}/bin"
+
+SHELL_PATH="$(which zsh)"
+if [ "$SHELL" != "$SHELL_PATH" ]; then
+  log_task "Changing default shell to zsh"
+	if grep -q "$SHELL_PATH" /etc/shells; then
+		sudo echo "$SHELL_PATH" | sudo tee -a /etc/shells
+	fi
+	sudo chsh -s "$SHELL_PATH" "$USER"
+else
+	log_info "${USER}'s shell is already changed."
+fi

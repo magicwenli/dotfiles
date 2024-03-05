@@ -2,6 +2,17 @@
 
 # LOAD PLUGINS FROM GITHUB
 
+zinit lucid wait for \
+    'lukechilds/zsh-better-npm-completion' \
+    atload'_zsh_autosuggest_start \
+        && bindkey "^n" autosuggest-accept' \
+    'zsh-users/zsh-autosuggestions' \
+    blockf atpull'zinit creinstall -q .' \
+    'zsh-users/zsh-completions'
+
+zinit lucid atload"zicompinit; zicdreplay" for \
+    'zdharma/fast-syntax-highlighting'
+
 zinit ice --lucid \
     && zinit light "tarrasch/zsh-bd"
 
@@ -11,11 +22,6 @@ zinit ice --lucid                                      \
     && zstyle ":plugin:zsh-startify:vim"        size 5 \
     && zstyle ":plugin:zsh-startify:shellutils" size 5 \
     && bindkey "^A" zsh-startify
-
-zinit ice --lucid \
-    && zinit light "zsh-users/zsh-completions"
-zinit ice lucid wait \
-    atinit"zicompinit; zicdreplay"  # fix fzf-tab
 
 # git wrapper for fzf
 zinit ice --lucid --wait=0 --if="[ -n $(command -v git) ]" \
@@ -49,10 +55,6 @@ zinit ice --lucid --wait=0 --if="[ -n $(command -v grc) ]" \
 # suggest a command based on previous history
 zinit ice --lucid \
     && zinit light "zsh-users/zsh-autosuggestions"
-
-# highlight syntax for shell
-zinit ice --lucid \
-    && zinit light "zdharma-continuum/fast-syntax-highlighting"
 
 # alias reminder when you type a full command
 zinit ice --lucid \
