@@ -49,19 +49,19 @@ alias tictactoe="telnet pixelomer.com"
     && debug_info "Adding aliases for 'bw'"
 
 # IF EZA IS INSTALLED
-[ -n "$(command -v eza)" ]                   \
-    && alias sl="eza"                        \  # ls
-    && alias ls="eza"                        \  # ls
-    && alias l="eza -lbF --git"              \  # list, size, type, git
-    && alias ll="eza -lbGF --git"            \  # long list
-    && alias llm="eza -lbGF --git --sort=modified"                             \  # long list, modified date sort
-    && alias la="eza -lbhHigUmuSa --time-style=long-iso --git --color-scale"   \  # all list
-    && alias lx="eza -lbhHigUmuSa@ --time-style=long-iso --git --color-scale"  \  # all+extend list
-    && alias lS="eza -1"                     \  # one line
-    && alias lt="eza --tree --level=2"       \  # tree
-    && alias tree="eza --tree --level=2"     \
-    && debug_info "Adding aliases for 'eza'"
-
+if [ -n "$(command -v eza)" ] then
+    alias sl="eza"                          # ls
+    alias ls="eza"                          # ls
+    alias l="eza -lbF --git"                # list, size, type, git
+    alias ll="eza -lbGF --git"              # long list
+    alias llm="eza -lbGF --git --sort=modified"                             # long list, modified date sort
+    alias la="eza -lbhHigUmuSa --time-style=long-iso --git --color-scale"   # all list
+    alias lx="eza -lbhHigUmuSa@ --time-style=long-iso --git --color-scale"  # all+extend list
+    alias lS="eza -1"                       # one line
+    alias lt="eza --tree --level=2"         # tree
+    alias tree="eza --tree --level=2"       # tree
+    debug_info "Adding aliases for 'eza'"
+fi
 
 # IF NAVI IS INSTALLED
 [ -n "$(command -v navi)" ]         \
