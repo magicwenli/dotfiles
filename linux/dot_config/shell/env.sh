@@ -120,11 +120,6 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh" \
     && export PYENV_ROOT="$XDG_DATA_HOME/pyenv"        \
     && debug_info "Exporting PYENV_ROOT='$PYENV_ROOT'"
 
-[ -n "$(command -v rustup)" ]                           \
-    && debug_info "Initializing functions for 'rustup'" \
-    && export RUSTUP_HOME="$XDG_DATA_HOME/rustup"       \
-    && debug
-
 [ -n "$(command -v goenv)" ]                           \
     && debug_info "Initializing functions for 'goenv'" \
     && eval "$(goenv init -)"                          \
@@ -160,7 +155,6 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh" \
 
 [ -n "$(command -v fzf)" ]                                                                       \
     && export FZF_TMUX_HEIGHT="80%"                                                              \
-    && debug_info "Exporting FZF_TMUX_HEIGHT='$FZF_TMUX_HEIGHT'"                                 \
     && export FZF_DEFAULT_OPTS="                                                  \
         --prompt='~ ❯ '                                                           \
         --height='80%'                                                            \
