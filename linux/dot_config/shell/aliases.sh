@@ -48,20 +48,19 @@ alias tictactoe="telnet pixelomer.com"
     && alias bwli='eval $(bw login $(pass show bw/user) $(pass show bw/pass) --code $(2fa bw) | rg "export" | sed "s/\$ //g")' \
     && debug_info "Adding aliases for 'bw'"
 
-# IF EXA IS INSTALLED
-[ -n "$(command -v exa)" ]                               \
-    && alias sl="exa -FG --git --icons"                  \
-    && alias ls="exa -FG --git --icons"                  \
-    && alias ll="exa -Flh --git --icons"                 \
-    && alias lg="exa -FlhG --git --icons"                \
-    && alias lt="exa -Flht --git --icons"                \
-    && alias l1="exa -Flah --git --icons .."             \
-    && alias l2="exa -Flah --git --icons ../.."          \
-    && alias l3="exa -Flah --git --icons ../../.."       \
-    && alias l4="exa -Flah --git --icons ../../../.."    \
-    && alias l5="exa -Flah --git --icons ../../../../.." \
-    && alias tree="exa --git --tree --icons"             \
-    && debug_info "Adding aliases for 'exa'"
+# IF EZA IS INSTALLED
+[ -n "$(command -v eza)" ]                   \
+    && alias sl="eza"                        \  # ls
+    && alias ls="eza"                        \  # ls
+    && alias l="eza -lbF --git"              \  # list, size, type, git
+    && alias ll="eza -lbGF --git"            \  # long list
+    && alias llm="eza -lbGF --git --sort=modified"                             \  # long list, modified date sort
+    && alias la="eza -lbhHigUmuSa --time-style=long-iso --git --color-scale"   \  # all list
+    && alias lx="eza -lbhHigUmuSa@ --time-style=long-iso --git --color-scale"  \  # all+extend list
+    && alias lS="eza -1"                     \  # one line
+    && alias lt="eza --tree --level=2"       \  # tree
+    && alias tree="eza --tree --level=2"     \
+    && debug_info "Adding aliases for 'eza'"
 
 
 # IF NAVI IS INSTALLED
@@ -233,3 +232,15 @@ alias tictactoe="telnet pixelomer.com"
 [ -n "$(command -v taskwarrior-tui)" ] \
     && alias taskt="taskwarrior-tui"   \
     && debug_info "Adding aliases for 'taskwarrior-tui'"
+
+# IF BAT IS INSTALLED
+[ -n "$(command -v batcat)" ] \
+    && alias rcat=$(which cat)      \
+    && alias cat=$(which batcat)       \
+    && MANPAGER="sh -c 'col -bx | batcat -l man -p'" \
+    && debug_info "Adding aliases for 'batcat'"
+[ -n "$(command -v bat)" ] \
+    && alias rcat=$(which cat)      \
+    && alias cat=$(which bat)       \
+    && MANPAGER="sh -c 'col -bx | bat -l man -p'" \
+    && debug_info "Adding aliases for 'bat'"
