@@ -1,8 +1,7 @@
 # vim: syntax=sh
 
 # SOURCE SHELL SETTINGS
-export XDG_CONFIG_HOME="$HOME/.config"    \
-    && debug_info "Exporting XDG_CONFIG_HOME='$XDG_CONFIG_HOME'"
+export XDG_CONFIG_HOME="$HOME/.config"
 
 [ -d "$XDG_CONFIG_HOME/shell/" ]      \
     && source "$XDG_CONFIG_HOME/shell/env.sh"
