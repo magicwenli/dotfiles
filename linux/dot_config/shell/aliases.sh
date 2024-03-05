@@ -49,7 +49,7 @@ alias tictactoe="telnet pixelomer.com"
     && debug_info "Adding aliases for 'bw'"
 
 # IF EZA IS INSTALLED
-if [ -n "$(command -v eza)" ] then
+if [ -n "$(command -v eza)" ]; then
     alias sl="eza"                          # ls
     alias ls="eza"                          # ls
     alias l="eza -lbF --git"                # list, size, type, git
