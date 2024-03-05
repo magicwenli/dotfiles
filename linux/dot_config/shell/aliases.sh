@@ -241,6 +241,7 @@ fi
     && debug_info "Adding aliases for 'batcat'"
 [ -n "$(command -v bat)" ] \
     && alias rcat=$(which cat)      \
-    && alias cat=$(which bat)       \
+    && alias cat='bat -pp'       \
+    && alias less='bat --paging=always' \
     && MANPAGER="sh -c 'col -bx | bat -l man -p'" \
     && debug_info "Adding aliases for 'bat'"
