@@ -2,6 +2,8 @@
 
 # {{ template "scripts-library.sh" }}
 
+log_task "Entering Rust and CLI tools installation"
+
 readonly home_cargo_prefix="${HOME}/.cargo"
 
 ensure_path_entry "${home_cargo_prefix}/bin"
