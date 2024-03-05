@@ -1,7 +1,7 @@
 # vim: syntax=sh
 
 # ENABLE DEBUGGING
-DEBUG=0
+DEBUG=1
 function debug_info () {
     [ "$DEBUG" -eq 1 ]                             \
         && reset="$(tput sgr0)"                    \
