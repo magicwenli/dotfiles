@@ -14,7 +14,8 @@ zinit ice --lucid                                      \
 
 zinit ice --lucid \
     && zinit light "zsh-users/zsh-completions"
-    zicompinit; zicdreplay  # fix fzf-tab
+zinit ice lucid wait \
+    atinit"zicompinit; zicdreplay"  # fix fzf-tab
 
 # git wrapper for fzf
 zinit ice --lucid --wait=0 --if="[ -n $(command -v git) ]" \
