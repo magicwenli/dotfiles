@@ -59,6 +59,3 @@ zinit ice --lucid \
 zinit ice --lucid \
     && zinit light "michaelaquilina/zsh-you-should-use"
 
-# vim like key bindings
-zinit ice --lucid \
-    && zinit light "jeffreytse/zsh-vi-mode"
