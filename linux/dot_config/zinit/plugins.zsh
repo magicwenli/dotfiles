@@ -1,15 +1,6 @@
 # vim: syntax=sh
 
 # LOAD PLUGINS FROM GITHUB
-
-zinit lucid wait for \
-    'lukechilds/zsh-better-npm-completion' \
-    atload'_zsh_autosuggest_start \
-        && bindkey "^n" autosuggest-accept' \
-    'zsh-users/zsh-autosuggestions' \
-    blockf atpull'zinit creinstall -q .' \
-    'zsh-users/zsh-completions'
-
 zinit lucid atload"zicompinit; zicdreplay" for \
     'zdharma/fast-syntax-highlighting'
 

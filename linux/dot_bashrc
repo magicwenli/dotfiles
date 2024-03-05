@@ -133,3 +133,15 @@ export XDG_CONFIG_HOME="$HOME/.config"    \
 
 [ -d "$XDG_CONFIG_HOME/shell/" ]      \
     && source "$XDG_CONFIG_HOME/shell/env.sh"
+
+[ -n "$(command -v zoxide)" ]                           \
+    && debug_info "Initializing functions for 'zoxide'" \
+    && eval "$(zoxide init bash --cmd j)"
+
+[ -n "$(command -v direnv)" ]    \
+    && eval "$(direnv hook bash)" \
+    && debug_info "Initializing functions for 'direnv'"
+
+[ -n "$(command -v chezmoi)" ]          \
+    && eval "$(chezmoi completion bash)" \
+    && debug_info "Initializing functions for 'chezmoi'"
