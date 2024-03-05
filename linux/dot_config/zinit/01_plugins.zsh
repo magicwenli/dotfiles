@@ -1,8 +1,6 @@
 # vim: syntax=sh
 
 # LOAD PLUGINS FROM GITHUB
-zinit lucid atload"zicompinit; zicdreplay" for \
-    'zdharma/fast-syntax-highlighting'
 
 zinit ice --lucid \
     && zinit light "tarrasch/zsh-bd"
@@ -12,7 +10,13 @@ zinit ice --lucid                                      \
     && zinit light "zdharma-continuum/zsh-startify"    \
     && zstyle ":plugin:zsh-startify:vim"        size 5 \
     && zstyle ":plugin:zsh-startify:shellutils" size 5 \
-    && bindkey "^A" zsh-startify
+    && bindkey "^A" zsh-startify \
+    && bindkey "^n" autosuggest-accept
+
+zinit ice --lucid \
+    && zinit light "zsh-users/zsh-completions"
+
+zinit atinit'zicompinit; zicdreplay'  # fix fzf-tab
 
 # git wrapper for fzf
 zinit ice --lucid --wait=0 --if="[ -n $(command -v git) ]" \
@@ -50,6 +54,14 @@ zinit ice --lucid \
 # alias reminder when you type a full command
 zinit ice --lucid \
     && zinit light "michaelaquilina/zsh-you-should-use"
+
+# highlight syntax for shell
+zinit ice --lucid \
+    && zinit light "zdharma-continuum/fast-syntax-highlighting"
+
+# suggest a command based on previous history
+zinit ice --lucid \
+    && zinit light "zsh-users/zsh-autosuggestions"
 
 # vim like key bindings
 zinit ice --lucid \
