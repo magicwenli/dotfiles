@@ -182,4 +182,15 @@ export EDITOR="nvim" \
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh" \
     && debug_info "Exporting ZDOTDIR='$ZDOTDIR'"
 
+[ -d "/opt/homebrew/bin/" ]      \
+    && _BREW="/opt/homebrew/bin" \
+    || [ -d "/home/linuxbrew/.linuxbrew/bin" ] \
+        && _BREW="/home/linuxbrew/.linuxbrew/bin" \
+        || _BREW="${HOME}/.linuxbrew/bin" \
+
+# INITIALIZE BREW
+[ -n "$(command -v $_BREW/brew)" ]    \
+    && eval "$($_BREW/brew shellenv)" \
+    && debug_info "Initializing functions for 'brew'"
+
 . "$HOME/.cargo/env"
