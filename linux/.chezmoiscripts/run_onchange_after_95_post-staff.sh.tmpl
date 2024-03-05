@@ -9,13 +9,14 @@ readonly root_homebrew_prefix="/home/linuxbrew/.linuxbrew"
 
 ensure_path_entry "${home_homebrew_prefix}/bin" "${root_homebrew_prefix}/bin"
 
-SHELL_PATH="$(which zsh)"
-if [ "$SHELL" != "$SHELL_PATH" ]; then
+shell_path="$(which zsh)"
+user=$(whoami)
+if [ "$SHELL" != "$shell_path" ]; then
   log_task "Changing default shell to zsh"
-	if grep -q "$SHELL_PATH" /etc/shells; then
-		sudo echo "$SHELL_PATH" | sudo tee -a /etc/shells
+	if grep -q "$shell_path" /etc/shells; then
+		sudo echo "$shell_path" | sudo tee -a /etc/shells
 	fi
-	sudo chsh -s "$SHELL_PATH" "$USER"
+	sudo chsh -s "$shell_path" "$user"
 else
-	log_info "${USER}'s shell is already changed."
+	log_info "${user}'s shell is already changed."
 fi
