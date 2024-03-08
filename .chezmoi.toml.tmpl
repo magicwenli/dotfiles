@@ -1,7 +1,6 @@
+{{- $os := "linux" -}}
 {{- if eq .chezmoi.os "windows" }}
 {{- $os := "windows" -}}
-{{- else }}
-{{- $os := "linux" -}}
 {{- end }}
 
 {{- $key_recipient = "4009CCB16D81F799" -}}
@@ -9,7 +8,7 @@
 {{- $choices := list "h0" "w1" "w2" -}}
 {{- $avatar := promptString "Choose your avatar" $choices -}}
 
-sourceDir: {{- joinPath .chezmoi.sourceDir {{ $os | quote }} -}}
+sourceDir = {{ joinPath .chezmoi.sourceDir $os }}
 encryption = "gpg"
 [gpg]
   recipient = "{{ $key_recipient }}"
