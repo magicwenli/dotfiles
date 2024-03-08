@@ -2,6 +2,9 @@
 
 set -e # -e: exit on error
 
+sudo apt update
+sudo apt install gpg git pass
+
 if [ ! "$(command -v chezmoi)" ]; then
   bin_dir="$HOME/.local/bin"
   chezmoi="$bin_dir/chezmoi"
