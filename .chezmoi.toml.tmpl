@@ -16,7 +16,7 @@ encryption = "gpg"
 [data]
     os = {{ $os | quote }}
     avatar = {{ $avatar | quote }}
-    [date.user]
+    [data.user]
         name = {{ pass (print $avatar "/git_name") | quote }}
         email = {{ pass (print $avatar "/git_email") | quote }}
         gpg_id = {{ pass (print $avatar "/git_gpg_id") | quote }}
