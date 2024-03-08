@@ -114,3 +114,16 @@ if [[ ${#missing_packages[@]} -gt 0 ]]; then
   log_task "Installing missing packages with Homebrew: ${missing_packages[*]}"
   brew install --force "${missing_packages[@]}"
 fi
+
+log_task "Set up zsh"
+shell_path="$(which zsh)"
+user=$(whoami)
+if [ "$SHELL" != "$shell_path" ]; then
+  log_task "Changing default shell to zsh"
+	if grep -q "$shell_path" /etc/shells; then
+		sudo echo "$shell_path" | sudo tee -a /etc/shells
+	fi
+	sudo chsh -s "$shell_path" "$user"
+else
+	log_info "${user}'s shell is already changed."
+fi

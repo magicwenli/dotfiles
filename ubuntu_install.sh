@@ -26,4 +26,4 @@ fi
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 cd $script_dir
 export PASSWORD_STORE_DIR="$script_dir/linux/private_dot_password-store"
-exec "$chezmoi" init --apply "$@"
+exec "$chezmoi" init --apply --data=false "$@"
