@@ -8,7 +8,7 @@
 {{- $choices := list "h0" "w1" "w2" -}}
 {{- $avatar := promptChoice "Choose your avatar" $choices -}}
 
-sourceDir = {{ joinPath .chezmoi.sourceDir $os }}
+sourceDir = {{ joinPath .chezmoi.sourceDir $os | quote }}
 encryption = "gpg"
 [gpg]
   recipient = {{ $key_recipient | quote }}
