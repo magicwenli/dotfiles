@@ -1,9 +1,9 @@
 {{- $os := "linux" -}}
 {{- if eq .chezmoi.os "windows" }}
-{{- $os := "windows" -}}
+{{- $os = "windows" -}}
 {{- end }}
 
-{{- $key_recipient = "4009CCB16D81F799" -}}
+{{- $key_recipient := "4009CCB16D81F799" -}}
 
 {{- $choices := list "h0" "w1" "w2" -}}
 {{- $avatar := promptString "Choose your avatar" $choices -}}
@@ -17,6 +17,6 @@ encryption = "gpg"
     os = {{- $os | quote -}}
     avatar = {{- $avatar | quote -}}
     [date.user]
-        name = {{- pass {{ cat $avatar "/git_name" }} -}}
-        email = {{- pass {{ cat $avatar "/git_email" }} -}}
-        gpg_id = {{- pass {{ cat $avatar "/git_gpg_id" }} -}}
+        name = {{ pass (print $avatar "/git_name") }}
+        email = {{ pass (print $avatar "/git_email") }}
+        gpg_id = {{ pass (print $avatar "/git_gpg_id") }}
