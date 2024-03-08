@@ -2,8 +2,11 @@
 
 set -e # -e: exit on error
 
-sudo apt update
-sudo apt install gpg git pass
+if ! command -v gpg >/dev/null || ! command -v git >/dev/null || ! command -v pass >/dev/null; then
+  echo "Installing gpg, git, and pass" >&2
+  sudo apt update
+  sudo apt install -y gpg git pass
+fi
 
 if [ ! "$(command -v chezmoi)" ]; then
   bin_dir="$HOME/.local/bin"
