@@ -19,4 +19,6 @@ encryption = "gpg"
     [data.user]
         name = {{ pass (print $avatar "/git_name") | quote }}
         email = {{ pass (print $avatar "/git_email") | quote }}
+        {{- if eq $avatar "h0" }}
         gpg_id = {{ pass (print $avatar "/git_gpg_id") | quote }}
+        {{- end }}

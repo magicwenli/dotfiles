@@ -1,7 +1,9 @@
 [user]
     name       = "{{ .user.name }}"
     email      = "{{ .user.email }}"
+    {{- if eq $avatar "h0" }}
     signingkey = "{{ .user.gpg_id }}"
+    {{- end }}
 
 [credential "https://github.com"]
 	helper = !gh auth git-credential
