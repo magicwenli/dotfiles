@@ -18,7 +18,8 @@ A proxy is needed to access the Internet. Set the proxy with:
 
 Install them with:
 
-    # For macOS / Linux
+    # For ubuntu
+    sudo apt update && sudo apt install git gpg pass -y
     sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --branch dev magicwenli
     ~/.local/bin/chezmoi apply
 

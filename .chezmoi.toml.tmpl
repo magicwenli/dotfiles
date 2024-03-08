@@ -14,8 +14,8 @@ encryption = "gpg"
   recipient = "{{ $key_recipient }}"
 
 [data]
-    os = {{- $os | quote -}}
-    avatar = {{- $avatar | quote -}}
+    os = {{ $os | quote }}
+    avatar = {{ $avatar | quote }}
     [date.user]
         name = {{ pass (print $avatar "/git_name") }}
         email = {{ pass (print $avatar "/git_email") }}
