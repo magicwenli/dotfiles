@@ -1,7 +1,7 @@
 {{- if eq .chezmoi.os "windows" }}
-{{- $os := windows -}}
+{{- $os := "windows" -}}
 {{- else }}
-{{- $os := linux -}}
+{{- $os := "linux" -}}
 {{- end }}
 
 {{- $key_recipient = "4009CCB16D81F799" -}}
