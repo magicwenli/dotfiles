@@ -19,7 +19,6 @@ zinit ice --lucid                                      \
     && zinit light "zdharma-continuum/zsh-startify"    \
     && zstyle ":plugin:zsh-startify:vim"        size 5 \
     && zstyle ":plugin:zsh-startify:shellutils" size 5 \
-    && bindkey "^A" zsh-startify \
     && bindkey "^n" autosuggest-accept
 
 # git wrapper for fzf
