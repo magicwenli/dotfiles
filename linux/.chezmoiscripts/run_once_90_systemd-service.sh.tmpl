@@ -16,6 +16,8 @@ After=network.target
 [Service]
 ExecStart={{- .chezmoi.workingTree -}}/../cfl/start.sh
 ExecReload={{- .chezmoi.workingTree -}}/../cfl/shutdown.sh
+Environment="SECRET={{ pass "pxy/clash/url_default" | quote }}"
+Environment="SECRET={{ pass "pxy/clash/secret_default" | quote }}"
 Type=simple
 KillMode=none
 Restart=no
