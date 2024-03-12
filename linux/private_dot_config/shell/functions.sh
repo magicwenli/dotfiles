@@ -21,3 +21,5 @@ function unpxy(){
 	unset no_proxy
 	echo -e "\033[31m[×] unset proxy!\033[0m"
 }
+
+pxy
