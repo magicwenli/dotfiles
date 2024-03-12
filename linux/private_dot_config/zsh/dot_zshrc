@@ -31,6 +31,8 @@ fi
     && debug_info "Sourcing file '$XDG_CONFIG_HOME/p10k/p10k.zsh'"
 
 # SETUP KEYBINDINGS
-bindkey "ç" fzf-cd-widget                           \
-    && bindkey -M viins 'jj' vi-cmd-mode \
-    && debug_info "Setting keybindings for 'zsh'"
+bindkey -e
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey -M viins 'jj' vi-cmd-mode
+debug_info "Setting keybindings for 'zsh'"
