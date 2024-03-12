@@ -72,6 +72,9 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh" \
         && _BREW="/home/linuxbrew/.linuxbrew/bin" \
         || _BREW="${HOME}/.linuxbrew/bin" \
 
+export ZPFX="$XDG_DATA_HOME/zinit/polaris" \
+    && debug_info "Exporting ZPFX='$ZPFX'"
+
 # INITIALIZE CLI TOOLS FUNCTIONS
 [ -n "$(command -v $_BREW/brew)" ]    \
     && eval "$($_BREW/brew shellenv)" \
