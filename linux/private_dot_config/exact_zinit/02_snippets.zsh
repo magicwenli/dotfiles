@@ -21,3 +21,13 @@ zinit ice --lucid --wait=0  \
 # toggle fg and bg commands pressing 'ctrl + z'
 zinit ice --lucid --wait=0  \
     && zinit snippet "OMZ::plugins/fancy-ctrl-z/fancy-ctrl-z.plugin.zsh"
+
+# shift and arrows to switch folder
+zinit ice --lucid --wait=0  \
+    && zinit snippet "OMZ::plugins/dirhistory/dirhistory.plugin.zsh"
+
+zinit ice as"completion" \
+    && zinit snippet "OMZ::plugins/repo/_repo"
+
+zinit ice as"completion" \
+    && zinit snippet "OMZ::plugins/docker/completions/_docker"

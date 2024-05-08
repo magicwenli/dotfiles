@@ -34,5 +34,10 @@ fi
 bindkey -e
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5A" beginning-of-line
+bindkey "^[[1;5B" end-of-line
+bindkey "^[[H"   beginning-of-line
+bindkey "^[[F"   end-of-line
+bindkey "^[[3~"  delete-char
 bindkey -M viins 'jj' vi-cmd-mode
 debug_info "Setting keybindings for 'zsh'"
