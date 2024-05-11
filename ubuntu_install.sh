@@ -6,6 +6,8 @@ if ! command -v gpg >/dev/null || ! command -v git >/dev/null || ! command -v pa
   echo "Installing gpg, git, and pass" >&2
   sudo apt update
   sudo apt install -y gpg git pass
+
+  echo "please config gpg with gpg --homedir ~/.local/share/gnupg"
 fi
 
 if [ ! "$(command -v chezmoi)" ]; then
@@ -23,7 +25,8 @@ else
   chezmoi=chezmoi
 fi
 
-script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
-cd $script_dir
-export PASSWORD_STORE_DIR="$script_dir/linux/private_dot_password-store"
+cz_dir="$HOME/.local/share/chezmoi"
+git clone https://github.com/magicwenli/dotfiles.git -b dev "$cz_dir"
+cd $cz_dir
+export PASSWORD_STORE_DIR="$cz_dir/linux/private_dot_password-store"
 exec "$chezmoi" init --apply --data=false "$@"

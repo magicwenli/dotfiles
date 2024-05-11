@@ -1,7 +1,6 @@
 # vim: syntax=sh
 
 # LOAD PLUGINS FROM GITHUB
-
 zinit lucid wait for \
     atload'_zsh_autosuggest_start' \
     'zsh-users/zsh-autosuggestions' \
