@@ -30,6 +30,9 @@ fi
     && source "$XDG_CONFIG_HOME/p10k/p10k.zsh" \
     && debug_info "Sourcing file '$XDG_CONFIG_HOME/p10k/p10k.zsh'"
 
+# disable style
+unset zle_bracketed_paste
+
 # SETUP KEYBINDINGS
 bindkey -e
 bindkey "^[[1;5C" forward-word

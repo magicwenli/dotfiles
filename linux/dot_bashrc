@@ -145,3 +145,4 @@ export XDG_CONFIG_HOME="$HOME/.config"    \
 [ -n "$(command -v chezmoi)" ]          \
     && eval "$(chezmoi completion bash)" \
     && debug_info "Initializing functions for 'chezmoi'"
+
