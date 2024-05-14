@@ -39,3 +39,7 @@ fi
 if [ -n "$(command -v repo)" ]; then
     z4h load ohmyzsh/ohmyzsh/plugins/repo/_repo
 fi
+
+if [ -n "$(command -v atuin)" ]; then
+    eval "$(atuin init zsh --disable-up-arrow)" # Bind ctrl-r but not up arrow
+fi
