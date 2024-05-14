@@ -41,9 +41,9 @@ export XDG_PUBLICSHARE_DIR="$HOME/Public"  \
     && debug_info "Exporting XDG_PUBLICSHARE_DIR='$XDG_PUBLICSHARE_DIR'"
 
 # SETUP HISTORY SETTINGS
-export SAVEHIST=32768                           \
+export SAVEHIST=10000000                           \
     && debug_info "Exporting SAVEHIST='$SAVEHIST'"
-export HISTSIZE=4096                            \
+export HISTSIZE=10000000                            \
     && debug_info "Exporting HISTSIZE='$HISTSIZE'"
 export HISTFILE="$XDG_CONFIG_HOME/zsh/.zsh_history" \
     && debug_info "Exporting HISTFILE='$HISTFILE'"
@@ -140,10 +140,6 @@ export ZPFX="$XDG_DATA_HOME/zinit/polaris" \
     && debug_info "Exporting PYENV_ROOT='$PYENV_ROOT'"
 
 # CLI TOOLS SETTINGS
-[ -n "$(command -v gh)" ]                  \
-    && eval "$(gh completion --shell zsh)" \
-    && debug_info "Initializing functions for 'gh'"
-
 [ -n "$(command -v rg)" ]                                                 \
     && export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/ripgrep.conf" \
     && debug_info "Exporting RIPGREP_CONFIG_PATH='$RIPGREP_CONFIG_PATH'"

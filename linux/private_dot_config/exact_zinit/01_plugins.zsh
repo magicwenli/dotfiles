@@ -10,6 +10,8 @@ zinit lucid wait for \
 zinit lucid atload"zicompinit; zicdreplay" for \
     'zdharma/fast-syntax-highlighting'
 
+zinit light zinit-zsh/z-a-patch-dl
+
 zinit ice lucid \
     && zinit light "tarrasch/zsh-bd"
 

@@ -12,7 +12,9 @@ function pxy() {
 	export http_proxy=http://127.0.0.1:7890
 	export https_proxy=http://127.0.0.1:7890
 	export no_proxy=127.0.0.1,localhost
-	echo -e "\033[32m[√] set proxy! <http_proxy: ${http_proxy}>\033[0m"
+	if [ -z "$1" ]; then
+		echo -e "\033[32m[√] set proxy! <http_proxy: ${http_proxy}>\033[0m"
+	fi
 }
 
 function unpxy(){
@@ -22,4 +24,4 @@ function unpxy(){
 	echo -e "\033[31m[×] unset proxy!\033[0m"
 }
 
-pxy
+pxy no_echo
