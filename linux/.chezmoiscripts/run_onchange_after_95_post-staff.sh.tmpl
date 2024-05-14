@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# {{ template "scripts-library.sh" }}
+
+log_task "Entering Post-Staff"
+
+# uninstall apt packages that already installed in homebrew
+
+function is_brew_package_installed() {
+  local package="$1"
+
+  brew list "${package}" &>/dev/null
+}
+
+# comm -12 <(brew list) <(ls /usr/bin|sort)
+readonly unwanted_packages=(
+  bzip2
+  curl
+  fzf
+  gettext
+  git
+  lz4
+  p11-kit
+  pass
+  qrencode
+  tree
+  unzip
+  xz
+  zsh
+  git
+)
+
+for package in "${unwanted_packages[@]}"; do
+  if is_brew_package_installed "${package}"; then
+    log_task "Uninstalling ${package}"
+    sudo apt remove -y "${package}" || true
+  fi
+done

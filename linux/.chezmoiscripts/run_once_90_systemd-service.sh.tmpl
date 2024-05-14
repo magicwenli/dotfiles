@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# {{ template "scripts-library.sh" }}
+
+log_task "Entering System configuration"
+
+log_task "Installing cfl config..."
+FILE="/tmp/cfl-$$"
+
+cat >"$FILE" <<- _EOF_
+[Unit]
+Description=clash-for-linux
+Documentation=
+After=network.target
+
+[Service]
+ExecStart={{- .chezmoi.workingTree -}}/../cfl/start.sh
+ExecReload={{- .chezmoi.workingTree -}}/../cfl/shutdown.sh
+Environment='SECRET={{ pass "pxy/clash/url_default" | quote }}'
+Environment='SECRET={{ pass "pxy/clash/secret_default" | quote }}'
+Type=simple
+KillMode=none
+Restart=no
+RestartSec=42s
+_EOF_
+
+sudo install -m0644 "$FILE" /etc/systemd/system/cfl.service

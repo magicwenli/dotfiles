@@ -1,0 +1,6 @@
+["cfl"]
+    type = "archive"
+    url = "https://gitea.com/magicwenli/clash-for-linux/archive/v0.0.2.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"

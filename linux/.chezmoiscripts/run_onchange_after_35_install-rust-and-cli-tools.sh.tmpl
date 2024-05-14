@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# {{ template "scripts-library.sh" }}
+
+log_task "Entering Rust and CLI tools installation"
+
+readonly home_cargo_prefix="${HOME}/.cargo"
+
+ensure_path_entry "${home_cargo_prefix}/bin"
+
+function is_package_installed() {
+  local package="$1"
+  if ! command -v "${package}" &>/dev/null; then
+    return 1
+  fi
+  return 0
+}
+
+if ! cargo --version &>/dev/null; then
+  log_task "Installing Rust"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+fi
+
+readonly wanted_packages=(
+
+)
+
+missing_packages=()
+
+for package in "${wanted_packages[@]}"; do
+  if ! is_brew_package_installed "${package}"; then
+    missing_packages+=("${package}")
+  fi
+done
+
+if [[ ${#missing_packages[@]} -gt 0 ]]; then
+  log_task "Installing missing packages with Cargo: ${missing_packages[*]}"
+  cargo install --locked "${missing_packages[@]}"
+fi

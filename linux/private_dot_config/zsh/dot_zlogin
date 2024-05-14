@@ -1,0 +1,5 @@
+# vim: syntax=sh
+
+if [ -z "$TMUX" ]; then
+
+fi

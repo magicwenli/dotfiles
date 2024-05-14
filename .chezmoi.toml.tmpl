@@ -1,0 +1,24 @@
+{{- $os := "linux" -}}
+{{- if eq .chezmoi.os "windows" }}
+{{- $os = "windows" -}}
+{{- end }}
+
+{{- $key_recipient := "4009CCB16D81F799" -}}
+
+{{- $choices := list "h0" "w1" "w2" -}}
+{{- $avatar := promptChoice "Choose your avatar" $choices -}}
+
+sourceDir = {{ joinPath .chezmoi.sourceDir $os | quote }}
+encryption = "gpg"
+[gpg]
+  recipient = {{ $key_recipient | quote }}
+
+[data]
+    os = {{ $os | quote }}
+    avatar = {{ $avatar | quote }}
+    [data.user]
+        name = {{ pass (print $avatar "/git_name") | quote }}
+        email = {{ pass (print $avatar "/git_email") | quote }}
+        {{- if eq $avatar "h0" }}
+        gpg_id = {{ pass (print $avatar "/git_gpg_id") | quote }}
+        {{- end }}
