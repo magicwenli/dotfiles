@@ -14,20 +14,14 @@ function is_brew_package_installed() {
 
 # comm -12 <(brew list) <(ls /usr/bin|sort)
 readonly unwanted_packages=(
-  bzip2
-  curl
   fzf
-  gettext
   git
-  lz4
-  p11-kit
   pass
   qrencode
   tree
-  unzip
-  xz
   zsh
   git
+  batcat
 )
 
 for package in "${unwanted_packages[@]}"; do

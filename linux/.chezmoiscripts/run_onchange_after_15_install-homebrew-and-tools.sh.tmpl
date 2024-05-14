@@ -70,29 +70,31 @@ for package in "${unwanted_packages[@]}"; do
 done
 
 readonly wanted_packages=(
-  chezmoi
-  git
-  yq
-  bat
-  zoxide
-  eza
-  ripgrep
-  bottom
-  fd
-  dust
-  just
-  tokei
-  navi
-  fzf
-  zsh
-  zinit
-  thefuck
-  vivid
   atuin
-  grc
+  bat
+  bottom
+  chezmoi
+  curl
+  dust
+  eza
+  fd
+  fzf
   gh
-  pass
+  git
+  grc
+  just
   lolcat
+  navi
+  pass
+  ripgrep
+  tealdeer
+  thefuck
+  tokei
+  vivid
+  yq
+  zinit
+  zoxide
+  zsh
 )
 
 readonly tap_packages=(
@@ -122,10 +124,10 @@ if [[ ${#missing_packages[@]} -gt 0 ]]; then
 fi
 
 log_task "Set up zsh"
-shell_path="$(which zsh)"
+shell_path="$(brew --prefix)/bin/zsh"
 user=$(whoami)
 if [ "$SHELL" != "$shell_path" ]; then
-  log_task "Changing default shell to zsh"
+  log_task "Changing default shell to $shell_path"
 	if grep -q "$shell_path" /etc/shells; then
 		sudo echo "$shell_path" | sudo tee -a /etc/shells
 	fi
