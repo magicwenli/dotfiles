@@ -5,20 +5,23 @@ z4h load ohmyzsh/ohmyzsh/plugins/fzf
 z4h load ohmyzsh/ohmyzsh/plugins/git
 z4h load ohmyzsh/ohmyzsh/plugins/thefuck
 z4h load michaelaquilina/zsh-you-should-use
-z4h load wfxr/forgit                                       \
-    && forgit_log="fglo"                                   \
-    && forgit_add="fga"                                    \
-    && forgit_diff="fgd"                                   \
-    && forgit_fixup="fgfu"                                 \
-    && forgit_clean="fgclean"                              \
-    && forgit_rebase="fgrb"                                \
-    && forgit_ignore="fgi"                                 \
-    && forgit_stash_show="fgss"                            \
-    && forgit_cherry_pick="fgcp"                           \
-    && forgit_reset_head="fgrh"                            \
-    && forgit_checkout_file="fgcf"                         \
-    && forgit_checkout_branch="fgcb"                       \
-    && forgit_checkout_commit="fgco"
+# change forgit aliases
+export forgit_revert_commit="fgrc"
+export forgit_log="fglo"
+export forgit_add="fga"
+export forgit_diff="fgd"
+export forgit_fixup="fgfu"
+export forgit_clean="fgclean"
+export forgit_rebase="fgrb"
+export forgit_ignore="fgi"
+export forgit_stash_show="fgss"
+export forgit_cherry_pick="fgcp"
+export forgit_reset_head="fgrh"
+export forgit_checkout_file="fgcf"
+export forgit_checkout_branch="fgcb"
+export forgit_checkout_commit="fgco"
+export forgit_revert_commit="fgrc"
+z4h load wfxr/forgit
 
 if [ -n "$(command -v grc)" ]; then
     z4h load unixorn/warhol.plugin.zsh
