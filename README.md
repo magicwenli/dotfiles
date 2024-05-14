@@ -14,20 +14,17 @@ A proxy is needed to access the Internet. Set the proxy with:
     $Env:http_proxy="http://127.0.0.1:7890"
     $Env:https_proxy="http://127.0.0.1:7890"
 
-## Import GnuPG
-
-```shell
-gpg --homedir ~/.local/share/gnupg
-gpg --import private.asc
-```
-
 ## Install
 
 Install them with:
 
     # For ubuntu
     sudo apt update && sudo apt install git gpg pass -y
-    sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --branch dev magicwenli
+
+    gpg --homedir ~/.local/share/gnupg
+    gpg --import private.asc
+
+    sh -c "$(curl -fsLS https://raw.githubusercontent.com/magicwenli/dotfiles/main/ubuntu_install.sh)" -- init magicwenli
     ~/.local/bin/chezmoi apply
 
     # For Windows PS

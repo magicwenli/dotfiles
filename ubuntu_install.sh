@@ -26,7 +26,7 @@ else
 fi
 
 cz_dir="$HOME/.local/share/chezmoi"
-git clone https://github.com/magicwenli/dotfiles.git -b dev "$cz_dir"
+git clone https://github.com/magicwenli/dotfiles.git "$cz_dir"
 cd $cz_dir
 export PASSWORD_STORE_DIR="$cz_dir/linux/private_dot_password-store"
 exec "$chezmoi" init --apply --data=false "$@"
