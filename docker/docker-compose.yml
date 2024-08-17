@@ -1,0 +1,11 @@
+services:
+  dotfiles:
+    container_name: dotfiles
+    build: 
+      context: .
+      dockerfile: ubuntu.Dockerfile
+    volumes:
+      - ../:/dotfiles
+    tty: true
+    working_dir: /dotfiles
+    user: ubuntu

@@ -31,3 +31,9 @@ Install them with:
     Set-ExecutionPolicy RemoteSigned -scope CurrentUser
     (irm -useb https://get.chezmoi.io/ps1) | powershell -c -
     & .\bin\chezmoi.exe init --apply magicwenli
+
+## note
+
+```
+sh -c "$(curl -fsLS get.chezmoi.io)"
+```
