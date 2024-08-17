@@ -1,0 +1,6 @@
+{{- $choices := list "tiny" "middle" "full" -}}
+{{- $pkg_size := promptChoice "Choose your package size" $choices -}}
+
+[data]
+    fullname = "vita"
+    size = {{ $pkg_size | quote }}

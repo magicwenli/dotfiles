@@ -1,0 +1,16 @@
+#!/bin/bash
+# {{ template "scripts-library.sh" }}
+
+if ! grep -q "$root_homebrew_prefix"/bin/fish /etc/shells; then
+    log_task "Fish: change default shell to fish"
+    c echo "$root_homebrew_prefix"/bin/fish | sudo tee -a /etc/shells >/dev/null
+    c chsh -s "$root_homebrew_prefix"/bin/fish
+fi
+
+log_task "Fish: setup plugins"
+"$root_homebrew_prefix"/bin/fish -c "fisher update"
+
+log_success "Fish: setup completed"
+
+log_info " Fish: recommended to install Meslo Nerd Font"
+log_info "     https://www.nerdfonts.com/font-downloads"

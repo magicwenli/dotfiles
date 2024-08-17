@@ -1,0 +1,49 @@
+#!/bin/bash
+# {{ template "scripts-library.sh" }}
+
+log_task "Brew: install packages"
+eval "$("$root_homebrew_prefix"/bin/brew shellenv)"
+
+c brew bundle --file=- <<EOF
+tap  "homebrew/bundle"
+# tiny size packages
+brew "ripgrep"
+brew "bottom"
+brew "fd"
+brew "dust"
+brew "fish"
+brew "fisher"
+brew "starship"
+
+{{- if or (eq .size "middle") (eq .size "full") }}
+# middle size packages
+brew "openssl"
+brew "curl"
+brew "git"
+brew "chezmoi"
+brew "commitizen"
+brew "fzf"
+brew "gh"
+brew "just"
+# for cheatsheet 
+brew "navi"
+# for code statistics 
+brew "tokei"
+# for YAML, JSON and XML process
+brew "yq"
+# simple http server
+brew "miniserve"
+{{- end }}
+
+{{- if eq .size "full" }}
+# full size packages
+# for python
+brew "uv"
+brew "pipx"
+
+# for nodejs
+brew "nvm"
+{{- end }}
+EOF
+
+log_success "Brew: packages installed"
