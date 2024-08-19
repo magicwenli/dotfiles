@@ -57,7 +57,7 @@ function fish_find_function --description 'Find fish function'
 end
 
 function pxy --description 'Set proxy. use -f to force'
-    if not set -q __HTTP_PROXY; or test "$argv" = "-f"
+    if not set -q __HTTP_PROXY; or contains -- "-f" $argv
         read -P "proxy string(http://ip:port) " -Ux __HTTP_PROXY
         echo "set proxy string: $__HTTP_PROXY"
     end
@@ -66,7 +66,7 @@ function pxy --description 'Set proxy. use -f to force'
 end
 
 function unpxy --description 'Unset proxy. use -f to force'
-    if test "$argv" = "-f"
+    if contains -- "-f" $argv
         set -e __HTTP_PROXY
     end
     set -e http_proxy
@@ -74,12 +74,20 @@ function unpxy --description 'Unset proxy. use -f to force'
     echo "unset proxy"
 end
 
-function git_config_user --description 'Set git user for current repo. use -f to force'
-    if not set -q __CONFIG_USER; or test "$argv" = "-f"
-        read -P "git user name " -Ux __CONFIG_USER
-        read -P "git user email " -Ux __CONFIG_EMAIL
+function git_config_user --description 'Set git user. -f to force. -g to global, otherwise local'
+    if not set -q __CONFIG_USER; or contains -- "-f" $argv
+        read -P "Input git user name: " -Ux __CONFIG_USER
+        read -P "Input git user email: " -Ux __CONFIG_EMAIL
+        if test -z $__CONFIG_USER; or test -z $__CONFIG_EMAIL
+            echo "user name or email is empty. abort"
+            return -1
+        end
     end
-    git config user.name $__CONFIG_USER
-    git config user.email $__CONFIG_EMAIL
-    echo "set git user: $__CONFIG_USER <$__CONFIG_EMAIL>"
+    set -f func_arg ""
+    if contains -- "-g" $argv
+        set -f func_arg "--global"
+    end
+    git config $func_arg user.name $__CONFIG_USER
+    git config $func_arg user.email $__CONFIG_EMAIL
+    echo "set git user $func_arg: $__CONFIG_USER <$__CONFIG_EMAIL>"
 end
