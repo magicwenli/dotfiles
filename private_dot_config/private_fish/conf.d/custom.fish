@@ -2,6 +2,8 @@
 
 abbr gco "git checkout"
 abbr gst "git status"
+abbr gcp "git cherry-pick"
+
 # for loop to cd into directories
 abbr 4DIRS --set-cursor=! "$(string join \n -- 'for dir in */' 'cd $dir' '!' 'cd ..' 'end')"
 abbr -a !! --position anywhere --function last_history_item
@@ -54,9 +56,9 @@ function fish_find_function --description 'Find fish function'
     grep --files-with-matches "$argv" $fish_function_path/*.fish
 end
 
-function pxy --description 'Set proxy'
-    if ! set -q __HTTP_PROXY
-        read -P "proxy string(ip:port) " -Ux __HTTP_PROXY
+function pxy --description 'Set proxy. use -f to force'
+    if not set -q __HTTP_PROXY; or test "$argv" = "-f"
+        read -P "proxy string(http://ip:port) " -Ux __HTTP_PROXY
         echo "set proxy string: $__HTTP_PROXY"
     end
     set -gx http_proxy $__HTTP_PROXY
@@ -64,10 +66,20 @@ function pxy --description 'Set proxy'
 end
 
 function unpxy --description 'Unset proxy. use -f to force'
-    if [ "$argv" = "-f" ]
+    if test "$argv" = "-f"
         set -e __HTTP_PROXY
     end
     set -e http_proxy
     set -e https_proxy
     echo "unset proxy"
+end
+
+function git_config_user --description 'Set git user for current repo. use -f to force'
+    if not set -q __CONFIG_USER; or test "$argv" = "-f"
+        read -P "git user name " -Ux __CONFIG_USER
+        read -P "git user email " -Ux __CONFIG_EMAIL
+    end
+    git config user.name $__CONFIG_USER
+    git config user.email $__CONFIG_EMAIL
+    echo "set git user: $__CONFIG_USER <$__CONFIG_EMAIL>"
 end
