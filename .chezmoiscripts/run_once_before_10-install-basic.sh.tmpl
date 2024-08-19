@@ -4,11 +4,13 @@
 log_task "APT: Install basic tools"
 
 if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+    log_info "APT: Use USTC mirror for ubuntu 24.04+"
     sudo sed -i 's/http:/https:/g' /etc/apt/sources.list.d/ubuntu.sources
     sudo sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list.d/ubuntu.sources
     sudo sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/ubuntu.sources
 fi
 if [ -z "$(grep archive.ubuntu.com /etc/apt/sources.list)" ]; then
+    log_info "APT: Use USTC mirror for ubuntu"
     sudo sed -i 's/http:/https:/g' /etc/apt/sources.list
     sudo sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list
     sudo sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
