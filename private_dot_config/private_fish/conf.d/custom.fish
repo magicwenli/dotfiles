@@ -111,11 +111,28 @@ function git_config_user --description 'Set git user. -f to force. -g to global,
             return -1
         end
     end
-    set -f func_arg ""
+    set -f func_arg " "
     if contains -- "-g" $argv
-        set -f func_arg "--global"
+        set -f func_arg " --global"
     end
-    git config $func_arg user.name $__CONFIG_USER
-    git config $func_arg user.email $__CONFIG_EMAIL
-    echo "set git user $func_arg: $__CONFIG_USER <$__CONFIG_EMAIL>"
+    git config user.name "$__CONFIG_USER"  "$func_arg"
+    git config user.email "$__CONFIG_EMAIL" "$func_arg"
+    echo "set git user$func_arg: $__CONFIG_USER <$__CONFIG_EMAIL>"
+end
+
+function git_sync_tag_date --description 'Sync tag date with author date.'
+    if test -z $argv
+        echo "Usage: git_sync_tag_date <message>"
+        echo "  ex: git_sync_tag_date 'bump: '"
+        echo "will auto add tag name after message"
+        return -1
+    end
+    git for-each-ref --format="%(refname:short) %(taggerdate:short)" refs/tags | while read tag date
+        set -l rev (git rev-list -n 1 $tag)
+        set -l commit_date (git show -s --format=%ai --date=short $rev)
+        if not contains -- "$date" "$commit_date"
+            GIT_COMMITTER_DATE="$commit_date" git tag -f -a $tag -m "$argv$tag" $rev
+            echo "sync $tag date to $commit_date($rev)"
+        end
+    end
 end
