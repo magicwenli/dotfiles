@@ -10,6 +10,9 @@ fi
 log_task "Fish: setup plugins"
 "$root_homebrew_prefix"/bin/fish -c "fisher update"
 
+log_task "Bat: setup syntax highlighting"
+"$root_homebrew_prefix"/bin/fish -c "bat cache --build"
+
 log_success "Fish: setup completed"
 
 log_info " Fish: recommended to install Meslo Nerd Font"
