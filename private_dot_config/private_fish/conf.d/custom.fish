@@ -32,11 +32,24 @@ abbr grsh 'git reset HEAD'
 abbr grsh! 'git reset HEAD --hard'
 abbr gcleanall 'git reset --hard && git clean -dffx'
 
+# chezmoi
+abbr cm 'chezmoi'
+
 # for loop to cd into directories
 abbr 4DIRS --set-cursor=! "$(string join \n -- 'for dir in */' 'cd $dir' '!' 'cd ..' 'end')"
 abbr -a !! --position anywhere --function last_history_item
 
 ### Bind
+
+# shift + arrow up
+bind -k sr "cd ..; commandline -f repaint"
+# shift + arrow down
+bind -k sf "cd (ls -d */ | fzf --bind 'tab:down,btab:up' --preview 'ls {}'); commandline -f repaint"
+
+# shift + arrow left
+bind -k sleft "prevd ; commandline -f repaint"
+# shift + arrow right
+bind -k sright "nextd ; commandline -f repaint"
 
 ### Environment Variables
 
