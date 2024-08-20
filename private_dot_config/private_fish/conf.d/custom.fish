@@ -33,7 +33,7 @@ abbr grsh! 'git reset HEAD --hard'
 abbr gcleanall 'git reset --hard && git clean -dffx'
 
 # chezmoi
-abbr cm 'chezmoi'
+abbr cm chezmoi
 
 # for loop to cd into directories
 abbr 4DIRS --set-cursor=! "$(string join \n -- 'for dir in */' 'cd $dir' '!' 'cd ..' 'end')"
@@ -44,7 +44,7 @@ abbr -a !! --position anywhere --function last_history_item
 # shift + arrow up
 bind -k sr "cd ..; commandline -f repaint"
 # shift + arrow down
-bind -k sf "cd (ls -d */ | fzf --bind 'tab:down,btab:up' --preview 'ls {}'); commandline -f repaint"
+bind -k sf "cd (ls -d */ | fzf); commandline -f repaint"
 
 # shift + arrow left
 bind -k sleft "prevd ; commandline -f repaint"
@@ -57,7 +57,16 @@ set -gx HOMEBREW_API_DOMAIN "https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottl
 set -gx HOMEBREW_BOTTLE_DOMAIN "https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
 set -gx HOMEBREW_BREW_GIT_REMOTE "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
 set -gx HOMEBREW_CORE_GIT_REMOTE "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
-set -gx HOMEBREW_PIP_INDEX_URL "https://pypi.tuna.tsinghua.edu.cn/simple" 
+set -gx HOMEBREW_PIP_INDEX_URL "https://pypi.tuna.tsinghua.edu.cn/simple"
+
+set -gx FZF_TMUX_HEIGHT "80%"
+set -gx FZF_DEFAULT_OPTS "--prompt='~ ❯ ' --height='80%' --marker='✗'  \
+    --inline-info --pointer='▶'                                        \
+    --bind 'tab:down,btab:up,shift-up:preview-up,shift-down:preview-down,shift-left:preview-page-up,shift-right:preview-page-down' \
+    --preview 'fzf_custom {}'"
+
+set -gx FZF_DEFAULT_COMMAND "fd --type f"
+set -gx FZF_COMPLETION_TRIGGER "**"
 
 ### Functions
 
@@ -98,7 +107,7 @@ function fish_find_function --description 'Find fish function'
 end
 
 function pxy --description 'Set proxy. use -f to force'
-    if not set -q __HTTP_PROXY; or contains -- "-f" $argv
+    if not set -q __HTTP_PROXY; or contains -- -f $argv
         read -P "proxy string(http://ip:port) " -Ux __HTTP_PROXY
         echo "set proxy string: $__HTTP_PROXY"
     end
@@ -107,7 +116,7 @@ function pxy --description 'Set proxy. use -f to force'
 end
 
 function unpxy --description 'Unset proxy. use -f to force'
-    if contains -- "-f" $argv
+    if contains -- -f $argv
         set -e __HTTP_PROXY
     end
     set -e http_proxy
@@ -116,7 +125,7 @@ function unpxy --description 'Unset proxy. use -f to force'
 end
 
 function git_config_user --description 'Set git user. -f to force. -g to global, otherwise local'
-    if not set -q __CONFIG_USER; or contains -- "-f" $argv
+    if not set -q __CONFIG_USER; or contains -- -f $argv
         read -P "Input git user name: " -Ux __CONFIG_USER
         read -P "Input git user email: " -Ux __CONFIG_EMAIL
         if test -z $__CONFIG_USER; or test -z $__CONFIG_EMAIL
@@ -125,10 +134,10 @@ function git_config_user --description 'Set git user. -f to force. -g to global,
         end
     end
     set -f func_arg " "
-    if contains -- "-g" $argv
+    if contains -- -g $argv
         set -f func_arg " --global"
     end
-    git config user.name "$__CONFIG_USER"  "$func_arg"
+    git config user.name "$__CONFIG_USER" "$func_arg"
     git config user.email "$__CONFIG_EMAIL" "$func_arg"
     echo "set git user$func_arg: $__CONFIG_USER <$__CONFIG_EMAIL>"
 end
@@ -146,6 +155,18 @@ function git_sync_tag_date --description 'Sync tag date with author date.'
         if not contains -- "$date" "$commit_date"
             GIT_COMMITTER_DATE="$commit_date" git tag -f -a $tag -m "$argv$tag" $rev
             echo "sync $tag date to $commit_date($rev)"
+        end
+    end
+end
+
+# fzf func
+function fzf_custom --description 'Custom opts for fzf'
+    set -l file $argv
+    if test -f $file
+        bat --style=numbers --color=always $file; or cat $file
+    else
+        if test -d $file
+            eza --tree --icons --color=always $file; or ls -al $file
         end
     end
 end
