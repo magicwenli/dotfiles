@@ -65,7 +65,7 @@ set -gx FZF_DEFAULT_OPTS "--prompt='~ ❯ ' --height='80%' --marker='✗'  \
     --bind 'tab:down,btab:up,shift-up:preview-up,shift-down:preview-down,shift-left:preview-page-up,shift-right:preview-page-down' \
     --preview 'fzf_custom {}'"
 
-set -gx FZF_DEFAULT_COMMAND "fd --type f"
+set -gx FZF_DEFAULT_COMMAND "ls -p"
 set -gx FZF_COMPLETION_TRIGGER "**"
 
 ### Functions
@@ -162,11 +162,15 @@ end
 # fzf func
 function fzf_custom --description 'Custom opts for fzf'
     set -l file $argv
-    if test -f $file
-        bat --style=numbers --color=always $file; or cat $file
+    if test -f $file;
+        if test (file $file | grep text)
+            bat --style=numbers --color=always $file; or cat $file
+        else
+            set_color red; echo $file; set_color normal; echo is binary
+        end
     else
         if test -d $file
-            eza --tree --icons --color=always $file; or ls -al $file
+            eza --icons --color=always -l -sold $file; or ls -al $file
         end
     end
 end
