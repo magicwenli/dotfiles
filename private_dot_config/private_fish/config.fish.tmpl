@@ -17,9 +17,13 @@ if test -d "$root_brew_path/bin"
     end
 end
 
+# startship
 [ -n "$(command -v starship)" ] && starship init fish | source
+# autin
+[ -n "$(command -v atuin)" ] && atuin init fish | source
 
 {{- if eq .size "full"}}
+# cargo env
 [ -n "$(command -v cargo)" ] && fish_add_path $HOME/.cargo/bin
 {{- end}}
 
