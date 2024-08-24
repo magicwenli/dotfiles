@@ -20,7 +20,7 @@ end
 # startship
 [ -n "$(command -v starship)" ] && starship init fish | source
 # autin
-[ -n "$(command -v atuin)" ] && atuin init fish | source
+[ -n "$(command -v atuin)" ] && atuin init fish --disable-up-arrow | source
 
 {{- if eq .size "full"}}
 # cargo env
