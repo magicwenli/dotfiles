@@ -1,4 +1,13 @@
+# Don't move functions from ~/.config/fish/conf.d to ~/.config/fish/functions
+# or it will not be loaded by fish.
+#
+# To use functions autoloading, put one function per file in ~/.config/fish/functions.
+# And make sure the file name is the same as the function name.
+
 ### Functions
+function custom_funcs --description 'Custom functions'
+    echo "custom functions loaded"
+end
 
 # input last history when type `!!`
 function last_history_item --description 'Get the last history item'
@@ -6,10 +15,11 @@ function last_history_item --description 'Get the last history item'
 end
 
 # git
-function grtgp --description 'Push commit to gerrit'
-    set remote_name (git remote | head -n 1)
-    set remote_branch (git rev-parse --abbrev-ref HEAD | head -n 1)
-    git push $remote_name HEAD:refs/for/$remote_branch
+function gerrit_push_commit --description 'Push commit to gerrit'
+    set remote_info (git rev-parse --abbrev-ref --symbolic-full-name @{u})
+    set remote_name (string split -m 1 -r / $remote_info)[1]
+    set remote_branch (string split -m 1 -r / $remote_info)[2]
+    echo "git push $remote_name HEAD:refs/for/$remote_branch"
 end
 
 # brew

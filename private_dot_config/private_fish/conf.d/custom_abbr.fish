@@ -5,6 +5,9 @@ abbr 4DIRS --set-cursor=! "$(string join \n -- 'for dir in */' 'cd $dir' '!' 'cd
 # input last history when type `!!`
 abbr -a !! --position anywhere --function last_history_item
 
+# gerrit push commit to review
+abbr -a gpc --function gerrit_push_commit
+
 # git
 abbr ga 'git add'
 abbr gaa 'git add --all'
