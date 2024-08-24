@@ -38,5 +38,8 @@ abbr grsh 'git reset HEAD'
 abbr grsh! 'git reset HEAD --hard'
 abbr gcleanall 'git reset --hard && git clean -dffx'
 
+abbr gps 'git push'
+abbr gpl 'git pull'
+
 # chezmoi
 abbr cm chezmoi
