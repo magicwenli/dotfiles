@@ -10,8 +10,10 @@ fi
 log_task "Fish: setup plugins"
 "$root_homebrew_prefix"/bin/fish -c "fisher update"
 
-log_task "Bat: setup syntax highlighting"
-"$root_homebrew_prefix"/bin/fish -c "bat cache --build"
+if command -v bat &> /dev/null; then
+    log_task "Bat: setup syntax highlighting"
+    "$root_homebrew_prefix"/bin/fish -c "bat cache --build"
+fi
 
 log_success "Fish: setup completed"
 
