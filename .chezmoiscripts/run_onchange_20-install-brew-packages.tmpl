@@ -4,7 +4,7 @@
 log_task "Brew: install packages"
 eval "$("$root_homebrew_prefix"/bin/brew shellenv)"
 
-c brew bundle --file=- <<EOF
+c brew bundle -v --file=- <<EOF
 tap  "homebrew/bundle"
 # tiny size packages
 brew "ripgrep"

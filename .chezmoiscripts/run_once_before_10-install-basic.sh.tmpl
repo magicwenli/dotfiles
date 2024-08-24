@@ -16,7 +16,7 @@ if [ -z "$(grep archive.ubuntu.com /etc/apt/sources.list)" ]; then
     sudo sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 fi
 sudo apt-get update -y
-sudo apt-get install -y bash git curl gpg
+sudo apt-get install -y bash curl gpg procps file git unzip build-essential gcc
 
 if ! command -v brew &>/dev/null; then
     log_task "Brew: Install self"
