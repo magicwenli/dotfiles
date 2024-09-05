@@ -41,8 +41,11 @@ abbr grsh 'git reset HEAD'
 abbr grsh! 'git reset HEAD --hard'
 abbr gcleanall 'git reset --hard && git clean -dffx'
 
-abbr gps 'git push'
+abbr gp 'git push'
 abbr gpl 'git pull'
+
+abbr gsh 'git show'
+abbr gshw 'git show --word-diff'
 
 # chezmoi
 abbr cm chezmoi
