@@ -1,0 +1,13 @@
+% git, filter-repo
+
+# git change commit author with git-filter-repo
+git filter-repo --force --mailmap <mailmap>
+
+% git, gerrit
+
+# push commit to gerrit
+git push <tracking_remote> <local_branch>:refs/for/<tracking_branch>
+
+$ local_branch: git name-rev --name-only HEAD
+$ tracking_remote: git config branch.<local_branch>.remote
+$ tracking_branch: git rev-parse --abbrev-ref --symbolic-full-name @{u} | cut -d'/' -f2

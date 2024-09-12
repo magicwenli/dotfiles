@@ -1,0 +1,12 @@
+% repo
+
+# abandan branches
+repo abandon <branch>
+
+# start a new project
+repo start <branch> --all
+
+# download a patch
+repo download <project> <change-id>
+
+$ project: repo list | cut -d' ' -f1 | fzf --preview 'repo info {}'
